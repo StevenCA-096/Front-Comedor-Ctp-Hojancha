@@ -1,0 +1,78 @@
+import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
+import Loadable from '../layouts/full/shared/loadable/Loadable';
+import ProtectedRoute from './ProtectedRoute';
+
+/* ***Layouts**** */
+const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
+const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
+
+/* ****Pages***** */
+const Dashboard = Loadable(lazy(() => import('../pages/dashboard/Dashboard')))
+const Error = Loadable(lazy(() => import('../pages/authentication/Error')));
+//Auth
+const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
+//Dining
+const Dinings = Loadable(lazy(() => import('../pages/dining/dinings/Dinings')));
+const DiningDetails = Loadable(lazy(() => import('../pages/dining/dining-details/DiningDetails')));
+const RegisterDiningPayment = Loadable(lazy(() => import('../pages/dining/register-dining-payment/RegisterDiningPayment')));
+const RegisterDiningAssistance = Loadable(lazy(() => import('../pages/dining/register-dining-assistance/RegisterDiningAssistance')));
+//Scholarship requests
+const ScholarshipRequests = Loadable(lazy(() => import('../pages/scholarship-requests/ScholarshipRequests')))
+//Scholarship students
+const ScholarshipStudents = Loadable(lazy(() => import('../pages/scholarship-students/ScholarshipStudents')))
+//Reports
+const Reports = Loadable(lazy(() => import('../pages/reports/Reports')))
+//Assistances
+const Assistances = Loadable(lazy(() => import('../pages/assistances/Assistances')))
+
+const Router = [
+  {
+    path: '/',
+    element:
+      <ProtectedRoute>
+        <FullLayout />
+      </ProtectedRoute>, // Protects main layout 
+    children: [
+      { path: '/', element: <Navigate to="/dashboard" /> },
+      { path: '/dashboard', exact: true, element: <Dashboard /> },
+      //Dining
+      {
+        path: '/dinings',
+        exact: true,
+        element: <BlankLayout />,
+        children: [
+          { path: '', exact: true, element: <Dinings /> },
+          { path: 'dining-details/:id', exact: true, element: <DiningDetails /> },
+        ]
+      },
+      {
+        path: '/register-dining-payment/diningId/:diningId',
+        exact: true,
+        element: <RegisterDiningPayment />,
+      },
+      { path: '/register-dining-assistance/diningId/:diningId', exact: true, element: <RegisterDiningAssistance /> },
+      //Scholarship
+      { path: '/scholarship-requests', element: <ScholarshipRequests /> },
+      //Scholarship students
+      { path: '/scholarship-students', element: <ScholarshipStudents /> },
+      //Reports
+      { path: '/reports', element: <Reports /> },
+      //Assistances
+      { path: '/assistances', element: <Assistances /> },
+      //Not found
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/auth',
+    element: <BlankLayout />, // Las rutas de auth NO están protegidas
+    children: [
+      { path: '404', element: <Error /> },
+      { path: '/auth/login', element: <Login /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+];
+
+export default Router;
