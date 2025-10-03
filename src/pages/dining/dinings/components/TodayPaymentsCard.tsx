@@ -3,7 +3,6 @@ import { IconCurrencyDollar } from '@tabler/icons-react';
 import DashboardCard from '@components/shared/DashboardCard';
 import { formatDateStringWithDays } from '@utils/date/format-date';
 import { useState } from 'react';
-import { isAxiosError } from 'axios';
 import OpenDiningModal from '@components/Modals/Dining/OpenDiningModal';
 import { useNavigate } from 'react-router';
 import type { TodayPaymentsCardProps } from '../types/TodayPaymentsCardProps';
@@ -12,10 +11,9 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
   const theme = useTheme()
   const [openModal, setOpenModal] = useState(false)
   const navigate = useNavigate()
-
+  console.log(error)
   const handleContinue = () => {
-
-    if (isAxiosError(error) && error.status == 404) {
+    if (error) {
       setOpenModal(true)
       return setOpenModal(true)
     }
@@ -65,7 +63,7 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
                 <Typography variant="subtitle2" fontSize={15} color="textSecondary">
                   {
                     data?.dining?.openingDate ?
-                      formatDateStringWithDays(data?.dining?.openingDate)
+                      formatDateStringWithDays(data?.dining?.openingDate as string)
                       :
                       'No abierta'
                   }
@@ -75,7 +73,7 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
           </>
       }
 
-      <OpenDiningModal open={openModal} onClose={() => setOpenModal(false)} refetch={refetch} />
+      <OpenDiningModal open={openModal} onClose={() => setOpenModal(false)} refetch={() => refetch} />
     </DashboardCard>
   );
 };

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { confirmStudentPaymentForToday } from '@services/dining-student/diningStudentService'
+import { confirmStudentPaymentForToday } from '@/services/dining-student/diningStudentService'
 import toast from 'react-hot-toast'
 
 const useCreateDiningStudentMutation = () => {

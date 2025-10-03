@@ -1,4 +1,5 @@
 import type { Responsible } from "./Responsible";
+import type { SocioeconomicInformation } from "./SocioeconomicInformation";
 
 export interface Student {
 
@@ -42,6 +43,7 @@ export interface Student {
 
     responsible: Responsible;
 
+    socioeconomicInformation: SocioeconomicInformation[]
     // studentEnrollment: StudentEnrollment;
 
     // user:User

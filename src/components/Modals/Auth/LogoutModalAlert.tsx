@@ -1,7 +1,7 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@stores/auth/authStore";
-import { logoutFromApi } from "@services/auth/authService";
+import { logoutFromApi } from "@/services/auth/authService";
 import { ExitToApp } from "@mui/icons-material";
 import { useState } from "react";
 

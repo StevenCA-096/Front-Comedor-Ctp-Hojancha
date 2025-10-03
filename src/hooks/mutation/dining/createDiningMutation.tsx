@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { createDining } from '@services/dining/diningService'
+import { createDining } from '@/services/dining/diningService'
 
 const useCreateDiningMutation = () => {
     const createDiningMutation = useMutation({

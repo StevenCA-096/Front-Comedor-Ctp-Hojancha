@@ -1,15 +1,17 @@
-import { Alert, Box, Button, Chip, IconButton, Tooltip, useTheme } from "@mui/material";
-import { formatDateStringWithDays } from "../../../../utils/date/format-date";
+import { Alert, Box, IconButton, Tooltip, useTheme } from "@mui/material";
+import { formatDateStringWithDays } from "@utils/date/format-date";
 import { IconEye, IconUserCheck } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import { Add, Payment } from "@mui/icons-material";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import type { Dining } from "@/types/dining/dining/entities/dining";
 import { useDiningList } from "@/hooks/api/dining/queries/useDiningList";
 import type { MRT_ColumnDef } from "material-react-table";
 import { MaterialReactTable } from "material-react-table";
 import useCustomMaterialTable from "@/utils/mui-datatable/materialTableConfig";
 import OpenDiningModal from "@/components/Modals/Dining/OpenDiningModal";
+import CustomChip from "@/components/Chip/CustomChip";
+import TableButton from "@/components/Buttons/TableButton";
 
 const DiningsTable = () => {
     const theme = useTheme()
@@ -31,7 +33,7 @@ const DiningsTable = () => {
             accessorKey: 'closeDate',
             header: 'Status',
             Cell: ({ cell }) => (
-                <Chip
+                <CustomChip
                     label={cell.getValue() ? 'Cerrada' : 'Abierta'}
                     color={cell.getValue() ? 'error' : 'success'}
                 />
@@ -42,10 +44,9 @@ const DiningsTable = () => {
             header: 'Hora',
             size: 120,
             Cell: ({ cell }) => (
-                <Chip
+                <CustomChip
                     label={cell.getValue<string>()}
                     color={cell.getValue() === 'Almuerzo' ? 'primary' : 'warning'}
-                    variant="outlined"
                 />
             ),
         },
@@ -110,31 +111,6 @@ const DiningsTable = () => {
         <MaterialReactTable table={table}/>
         <OpenDiningModal open={openModal} onClose={() => setOpenModal(false)} refetch={refetch} />
     </>;
-};
-
-interface TableButtonProps {
-    Icon: ReactNode;
-    label: string;
-    onClick: () => void;
-}
-
-const TableButton = ({ Icon, label, onClick }: TableButtonProps) => {
-    return (
-        <Button
-            fullWidth
-            size="small"
-            variant="outlined"
-            startIcon={Icon}
-            onClick={onClick}
-            sx={{
-                fontSize: '0.75rem',
-                minWidth: 'auto',
-                textTransform: 'none',
-            }}
-        >
-            {label}
-        </Button>
-    );
 };
 
 export default DiningsTable;

@@ -6,10 +6,10 @@ import Profile from './Profile';
 import { IconBellRinging, IconMenu } from '@tabler/icons-react';
 
 interface HeaderProps {
-  toogleSideBar: () => void,
+  toggleSidebar: () => void,
 }
 
-const Header = ({toogleSideBar}: HeaderProps) => {
+const Header = ({toggleSidebar}: HeaderProps) => {
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
@@ -31,7 +31,7 @@ const Header = ({toogleSideBar}: HeaderProps) => {
         <IconButton
           color="inherit"
           aria-label="menu"
-          onClick={toogleSideBar}
+          onClick={toggleSidebar}
           sx={{
             display: {
               lg: "none",

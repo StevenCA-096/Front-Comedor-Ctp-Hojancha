@@ -1,70 +1,73 @@
 import { useState } from "react";
-import { styled, Box, Typography, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import useIsMobile from "@/hooks/isMobile/useIsMobile";
 
-const MainWrapper = styled("div")(() => ({
-  display: "flex",
-  minHeight: "100vh",
-  width: "100%",
-}));
-
-const PageWrapper = styled("div")(() => ({
-  display: "flex",
-  flexGrow: 1,
-  flexDirection: "column",
-  zIndex: 1,
-  backgroundColor: "transparent",
-}));
+const SIDEBAR_WIDTH = 270;
 
 const FullLayout = () => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
+  
+  // States separados
+  const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(true);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(isMobile? false : true);
+  const handleToggleSidebar = () => {
+    if (isMobile) {
+      setMobileSidebarOpen(!isMobileSidebarOpen);
+    } else {
+      setDesktopSidebarOpen(!isDesktopSidebarOpen);
+    }
+  };
 
   return (
-    <MainWrapper className="mainwrapper">
-      {/* ------------------------------------------- */}
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
-      {/* ------------------------------------------- */}
       <Sidebar
-        isSidebarOpen={isSidebarOpen}
-        onSidebarClose={() => setSidebarOpen(false)}
+        isMobile={isMobile}
+        desktopOpen={isDesktopSidebarOpen}
+        mobileOpen={isMobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
       />
-      {/* ------------------------------------------- */}
-      {/* Main Wrapper */}
-      {/* ------------------------------------------- */}
-      <PageWrapper className="page-wrapper">
-        {/* ------------------------------------------- */}
+
+      {/* Main Content */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100%',
+          // Solo ajusta margin en desktop cuando está abierto
+          ml: !isMobile && isDesktopSidebarOpen ? `${SIDEBAR_WIDTH}px` : 0,
+          transition: 'margin-left 0.3s ease',
+        }}
+      >
         {/* Header */}
-        {/* ------------------------------------------- */}
-        <Header
-          toogleSideBar={() => setSidebarOpen(!isSidebarOpen)}
-        />
-        {/* ------------------------------------------- */}
-        {/* PageContent */}
-        {/* ------------------------------------------- */}
-        {/* ------------------------------------------- */}
-        {/* Page Route */}
-        {/* ------------------------------------------- */}
-        <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
+        <Header toggleSidebar={handleToggleSidebar} />
+
+        {/* Page Content */}
+        <Box sx={{ flexGrow: 1, p: 3 }}>
           <Outlet />
         </Box>
 
-        {/* ------------------------------------------- */}
-        {/* End Page */}
-        {/* ------------------------------------------- */}
-        <Box sx={{ pt: 6, pb: 3, display: 'flex', justifyContent: 'center' }}>
-          <Typography>
-            Sistema de comedor Colegio Técnico Profesional de Hojancha
-          </Typography>
-
+        {/* Footer */}
+        <Box
+          component="footer"
+          sx={{
+            py: 3,
+            textAlign: 'center',
+            borderTop: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          Sistema de comedor Colegio Técnico Profesional de Hojancha
         </Box>
-      </PageWrapper>
-    </MainWrapper>
+      </Box>
+    </Box>
   );
 };
 

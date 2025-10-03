@@ -8,6 +8,7 @@ export type ColorOptions = OverridableStringUnion<
   | "error"
   | "info"
   | "success"
-  | "warning",
+  | "warning"
+  | "default",
   TypographyProps["color"]
 >

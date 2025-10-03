@@ -24,17 +24,17 @@ const NavItem = ({ item, level, pathDirect, closeDrawer }: NavItemProps) => {
   const theme = useTheme();
   const itemIcon = <Icon stroke={1.5} size="1.3rem" />;
   const currentRoute = useLocation().pathname
-
+  const isCurrentRoute = currentRoute.includes(item.href as string)
   const ListItemStyled = styled(ListItem)(() => ({
     whiteSpace: 'nowrap',
     marginBottom: '2px',
     padding: '8px 10px',
     borderRadius: '8px',
-    backgroundColor: currentRoute == item.href ? theme.palette.primary.main : '',
+    backgroundColor: isCurrentRoute ? theme.palette.primary.main : '',
     color:
-      currentRoute == item.href ? 'white' : theme.palette.text.secondary,
+      isCurrentRoute ? 'white' : theme.palette.text.secondary,
     paddingLeft: '10px',
-    ...(currentRoute != item.href && ({
+    ...(!isCurrentRoute && ({
       '&:hover': {
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.main,

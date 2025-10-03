@@ -65,7 +65,7 @@ const DiningDetails = () => {
                                 <Chip
                                     label={
                                         data?.lunch?.dining?.openingDate ?
-                                            formatDateStringWithDays(data.lunch.dining.openingDate) : ""
+                                            formatDateStringWithDays(data.lunch.dining.openingDate as string) : ""
                                     }
                                     avatar={<CalendarMonth />}
                                     variant="outlined"

@@ -1,7 +1,7 @@
 import PageContainer from "@components/container/page/PageContainer"
 import SearchStudentByCedulaForm from "@components/forms/Student/SearchStudentByCedulaForm"
 import { Alert, AlertTitle, Box, Divider, Grid } from "@mui/material"
-import { getStudentPaymentInfo } from "@services/dining-student/diningStudentService"
+import { getStudentPaymentInfo } from "@/services/dining-student/diningStudentService"
 import { useState } from "react"
 import StudentFoundData from "../components/StudentFoundData"
 import ConfirmPayment from "./ConfirmPayment"

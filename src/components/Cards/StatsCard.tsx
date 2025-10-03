@@ -26,7 +26,7 @@ const StatsCard = ({
             <Typography variant="h6" color="textSecondary" gutterBottom>
               {title}
             </Typography>
-            <Typography variant="h4" component="div" color={color}>
+            <Typography variant="h4" component="div" color={'textSecondary'}>
               {value}
             </Typography>
           </Box>

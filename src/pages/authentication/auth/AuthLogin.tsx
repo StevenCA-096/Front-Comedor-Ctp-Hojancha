@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userLoginSchema } from '@utils/validation-form-schemas/userLoginSchema';
 import CustomButton from '@components/Buttons/CustomButton';
-import { login } from '@services/auth/authService';
+import { login } from '@/services/auth/authService';
 import { useState } from 'react';
 import { useAuthStore } from '@stores/auth/authStore';
 import { isAxiosError } from 'axios';

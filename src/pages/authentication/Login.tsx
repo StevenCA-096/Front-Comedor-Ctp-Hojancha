@@ -29,8 +29,8 @@ const Login2 = () => {
           <Grid
             item
             xs={11}
-            sm={12}
-            lg={12}
+            sm={6}
+            lg={6}
             xl={6}
             display="flex"
             justifyContent="center"

@@ -1,4 +1,6 @@
-export const formatDateWithDaysAndHour = (date) => {
+
+//RETURN EXAMPLE: 30 de septiembre de 2025, 08:58 p. m.	
+export const formatDateWithDaysAndHour = (date:Date) => {
   return date.toLocaleDateString('es', {
     year: 'numeric',
     month: 'long',
@@ -10,7 +12,7 @@ export const formatDateWithDaysAndHour = (date) => {
   })
 }
 
-export const formatDateWithDays = (date) => {
+export const formatDateWithDays = (date: Date) => {
   return date.toLocaleDateString('es', {
     year: 'numeric',
     month: 'long',
@@ -19,10 +21,10 @@ export const formatDateWithDays = (date) => {
   })
 }
 
-export const formatDateStringWithDays = (dateString) => {
+export const formatDateStringWithDays = (dateString: string) => {
   // Si viene como string ISO (YYYY-MM-DD)
   const [year, month, day] = dateString.split('-');
-  const date = new Date(year, month - 1, day); // month - 1 porque los meses van de 0-11
+  const date = new Date(parseInt(year),parseInt(month) - 1, parseInt(day)); // month - 1 porque los meses van de 0-11
   
   return date.toLocaleDateString('es', {
     year: 'numeric',
@@ -32,7 +34,7 @@ export const formatDateStringWithDays = (dateString) => {
   });
 }
 
-export const formatDateWithHoursHonly = (date) => {
+export const formatDateWithHoursHonly = (date:Date) => {
   return date.toLocaleDateString('es', {
     hour: '2-digit',
     minute: '2-digit',
