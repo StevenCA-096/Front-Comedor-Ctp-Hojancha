@@ -50,7 +50,7 @@ const FullLayout = () => {
         <Header toggleSidebar={handleToggleSidebar} />
 
         {/* Page Content */}
-        <Grid2 sx={{ flexGrow: 1, p: 3 }}>
+        <Grid2 sx={{ flexGrow: 1 }}>
           <Outlet />
         </Grid2>
 

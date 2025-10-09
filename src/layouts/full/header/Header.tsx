@@ -1,9 +1,9 @@
 import { Box, AppBar, Toolbar, styled, Stack, IconButton, Badge } from '@mui/material';
-import PropTypes from 'prop-types';
 
 // components
 import Profile from './Profile';
 import { IconBellRinging, IconMenu } from '@tabler/icons-react';
+import ThemeToggle from './ThemeToggle';
 
 interface HeaderProps {
   toggleSidebar: () => void,
@@ -13,7 +13,7 @@ const Header = ({toggleSidebar}: HeaderProps) => {
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
-    background: theme.palette.background.paper,
+    background: 'none',
     justifyContent: 'center',
     backdropFilter: 'blur(4px)',
     [theme.breakpoints.up('lg')]: {
@@ -56,15 +56,12 @@ const Header = ({toggleSidebar}: HeaderProps) => {
         </IconButton>
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
+          <ThemeToggle key={1}/>
           <Profile />
         </Stack>
       </ToolbarStyled>
     </AppBarStyled>
   );
-};
-
-Header.propTypes = {
-  sx: PropTypes.object,
 };
 
 export default Header;

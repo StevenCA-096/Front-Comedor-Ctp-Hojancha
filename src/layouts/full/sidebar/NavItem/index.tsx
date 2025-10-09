@@ -22,7 +22,7 @@ const NavItem = ({ item, pathDirect, closeDrawer }: NavItemProps) => {
   const theme = useTheme();
   const currentRoute = useLocation().pathname
   const isCurrentRoute = currentRoute.includes(item.href as string)
-
+  
   return (
     <List component="li" disablePadding key={item.id}>
       <ListItemButton
@@ -41,19 +41,29 @@ const NavItem = ({ item, pathDirect, closeDrawer }: NavItemProps) => {
           color:
             isCurrentRoute ? 'white' : theme.palette.text.secondary,
           paddingLeft: '10px',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          transform: 'scale(1)',
+          
           ...(!isCurrentRoute && ({
             '&:hover': {
               backgroundColor: theme.palette.primary.light,
               color: theme.palette.primary.main,
+              transform: 'scale(1.02)',
             },
           })),
-
+          
+          '&:active': {
+            transform: 'scale(0.98)',
+            transition: 'all 0.1s cubic-bezier(0.4, 0, 0.2, 1)',
+          },
+          
           '&.Mui-selected': {
             color: 'white',
             backgroundColor: theme.palette.primary.main,
             '&:hover': {
               backgroundColor: theme.palette.primary.main,
               color: 'white',
+              transform: 'scale(1.02)',
             },
           },
         }}
@@ -63,6 +73,13 @@ const NavItem = ({ item, pathDirect, closeDrawer }: NavItemProps) => {
             sx={{
               minWidth: '36px',
               color: 'inherit',
+              transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              '.MuiListItemButton-root:hover &': {
+                transform: 'translateX(2px)',
+              },
+              '.MuiListItemButton-root:active &': {
+                transform: 'scale(0.95)',
+              },
             }}
           >
             <Icon stroke={1.5} size="1.3rem" />

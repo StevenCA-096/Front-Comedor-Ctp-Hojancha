@@ -29,7 +29,7 @@ const DashboardCard = ({
     <Card
       sx={{ padding: 0 }}
       elevation={9}
-      variant={undefined}
+      variant={'outlined'}
     >
       {cardheading ? (
         <CardContent>

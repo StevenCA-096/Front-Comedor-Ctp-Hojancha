@@ -79,7 +79,6 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: 'white',
                     p: 2
                 }}
             >
@@ -131,7 +130,7 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                             <CustomButton
                                 color={'primary'}
                                 type="submit"
-                                icon={<Check />}
+                                icon={<Check sx={{color:'white'}}/>}
                                 loading={loading}
                             />
                         </Box>

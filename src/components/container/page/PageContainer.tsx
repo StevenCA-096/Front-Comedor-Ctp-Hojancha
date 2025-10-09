@@ -17,7 +17,7 @@ const PageContainer = ({ title, description = '', children, showBackButton = fal
       mt: 4,
       mb: 4,
       p: { xs: 2, sm: 3, md: 4 },
-      boxShadow: 8,
+      boxShadow: 2
     }}
   >
     <PageMeta title={title} description={description} />

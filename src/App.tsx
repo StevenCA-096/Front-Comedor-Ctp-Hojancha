@@ -1,22 +1,34 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useRoutes } from 'react-router-dom';
 import Router from './routes/Router';
-import { baselightTheme } from "./theme/DefaultColors";
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useMemo } from 'react';
+import useThemeStore from '@stores/theme/themeStore';
+import { basedarkTheme } from './theme/dark/DarkTheme';
+import { baselightTheme } from './theme/light/LightTheme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false, //avoid extre queries every time the user focuses the window
-      gcTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+      gcTime: 5 * 60 * 1000,
     }
   }
-})
+});
 
 function App() {
   const routing = useRoutes(Router);
-  const theme = baselightTheme;
+  const { mode, getEffectiveTheme } = useThemeStore();
+  
+  const effectiveTheme = useMemo(() => {
+    return getEffectiveTheme();
+  }, [mode, getEffectiveTheme]);
+
+  const theme = useMemo(
+    () => (effectiveTheme === 'dark' ? basedarkTheme : baselightTheme),
+    [effectiveTheme]
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -29,4 +41,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

@@ -31,7 +31,7 @@ const StudentPaymentsCard = () => {
               {todayData?.totalStudents} Pago{todayData?.totalStudents == 1 ? '' : 's'}
             </Typography>
             <Stack direction="row" spacing={1} my={1} alignItems="center">
-              <Avatar sx={{ width: 27, height: 27, background: '#13DEB9' }} >
+              <Avatar sx={{ width: 27, height: 27, bgcolor: 'success.main' }} >
                 ₡
               </Avatar>
               <Typography variant="subtitle2" fontWeight="600">

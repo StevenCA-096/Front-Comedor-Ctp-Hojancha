@@ -41,17 +41,20 @@ const Login2 = () => {
                 component={'img'}
                 src={Logo}
                 sx={{
-                  objectFit: "contain",
-                  width: '100%'
+                  objectFit: "cover",
+                  width: '100%',
                 }}
               />
-              <Typography color={'darkblue'} fontWeight={'bold'} fontSize={{ xs: 30, md: 35 }} my={4} >
+              <Typography color={'primary'} textAlign={'start'} fontSize={{ xs: 20, md: 25 }} my={4} >
+                Sistema de comedor
+              </Typography>
+              <Typography color={'primary'} fontWeight={'bold'} textAlign={'start'} fontSize={{ xs: 30, md: 35 }} my={4} >
                 Bienvenido
               </Typography>
               <Typography color={'gray'} fontWeight={'bold'}  >
                 Por favor, inicie sesión
               </Typography>
-              <Divider sx={{ mb: 2 }} />
+              <Divider sx={{ my: 2 }} />
 
               <AuthLogin />
             </Card>
