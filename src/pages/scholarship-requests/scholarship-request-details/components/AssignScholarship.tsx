@@ -3,13 +3,14 @@ import { SectionTitle } from "./SectionParts"
 import { IconBook, IconCheck, IconX } from "@tabler/icons-react"
 import useScholarshipsList from "@/hooks/api/scholarship/queries/useScholarshipsList"
 import useUpdateScholarshipRequestMutation from "@/hooks/api/scholarship-request/mutations/useUpdateScholarshipRequestMutation"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import type { ScholarshipRequest, ScholarshipRequestStatus } from "@/types/scholarship/scholarship_request/entities/ScholarshipRequest"
 import CustomChip from "@/components/Chip/CustomChip"
 import toast from "react-hot-toast"
 import { formatDateWithDaysAndHour } from "@/utils/date/format-date"
 import { useQueryClient, type QueryObserverResult, type RefetchOptions } from "@tanstack/react-query"
 import type { AxiosError } from "axios"
+import CustomButton from "@/components/Buttons/CustomButton"
 
 interface AssignScholarshipProps {
     scholarshipRequest: ScholarshipRequest | undefined,
@@ -24,6 +25,7 @@ const AssignScholarship = ({ scholarshipRequest, refetch }: AssignScholarshipPro
     const { data, isLoading } = useScholarshipsList()
 
     const updateMutation = useUpdateScholarshipRequestMutation()
+    const [submitLoading, setSubmitLoading] = useState<boolean>()
 
     const handleSend = async (status: ScholarshipRequestStatus) => {
         if (!status) {
@@ -62,7 +64,7 @@ const AssignScholarship = ({ scholarshipRequest, refetch }: AssignScholarshipPro
 
                 onError: () => toast.error('Error al intentar actualizar el registro')
             }
-        )
+        ).finally(() => setSubmitLoading(false))
     }
 
     return (
@@ -137,14 +139,14 @@ const AssignScholarship = ({ scholarshipRequest, refetch }: AssignScholarshipPro
             </FormControl>
 
             <Box mt={3} display="flex" gap={2}>
-                <Button
-                    variant="contained"
+                <CustomButton 
                     fullWidth
-                    startIcon={<IconCheck size={20} />}
-                    onClick={() => handleSend('Aprobado')}
-                >
-                    Asignar
-                </Button>
+                    label="Asignar"
+                    icon={<IconCheck size={20} />}
+                    onClickFn={() => handleSend('Aprobado')}
+                    loading={submitLoading}
+                    sx={{color:"white"}}
+                />
                 <Button
                     fullWidth
                     variant="outlined"
