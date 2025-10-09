@@ -11,7 +11,6 @@ import AssignScholarship from "./components/AssignScholarship";
 import ResponsibleInfo from "./components/ResponsibleInfo";
 import StudentInfo from "./components/StudentInfo";
 import SocioeconomicInfo from "./components/SocioeconomicInfo";
-import BlankCard from "@/components/shared/BlankCard";
 
 const ScholarshipRequestDetails = () => {
   const { id } = useParams<{ id: string }>();

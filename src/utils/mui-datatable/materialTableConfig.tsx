@@ -95,7 +95,7 @@ const localizationConfig = {
   unpinAll: 'Desanclar todo',
 }
 
-export interface CustomMaterialTableProps<T extends Record<string, any> = {}> {
+export interface CustomMaterialTableProps<T extends Record<string, unknown> = {}> {
   columns: MRT_ColumnDef<T>[];
   data: T[];
   isLoadingError: boolean;

@@ -1,4 +1,4 @@
-import { Alert, Chip, Divider, Grid, Tab, Tabs, Typography } from "@mui/material"
+import { Alert, Grid, Tab, Tabs, Typography } from "@mui/material"
 import PageContainer from "@components/container/page/PageContainer"
 import { getTodayStats } from "@/services/dining/diningService"
 import DiningsTable from "./components/DiningsTable"

@@ -8,7 +8,7 @@ interface CustomChipProps extends ChipProps {
     label: string;
     color?: ColorOptions;
     sx?: SxProps<Theme>,
-    icon?: ReactElement<unknown, string | JSXElementConstructor<any>> | undefined,
+    icon?: ReactElement<unknown, string | JSXElementConstructor<unknown>> | undefined,
 }
 
 // helper outside the component

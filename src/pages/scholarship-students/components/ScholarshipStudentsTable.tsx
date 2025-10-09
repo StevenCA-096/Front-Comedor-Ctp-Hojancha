@@ -76,7 +76,7 @@ const ScholarshipStudentsTable = ({ year }: { year: number }) => {
                 </Select>
             </FormControl>
         ,
-        renderRowActions: ({ row }) => (
+        renderRowActions: () => (
             <div style={{ display: 'flex', gap: '8px', flexDirection: "row" }}>
                 <TableButton
                     Icon={<IconEye size={16} />}

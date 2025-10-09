@@ -7,7 +7,7 @@ import useScholarshipRequestsList from "@/hooks/api/scholarship-request/queries/
 import type { ScholarshipRequestStatus } from "@/types/scholarship/scholarship_request/entities/ScholarshipRequest"
 
 const ScholarshipRequests = () => {
-  const { data: scholarshipRequests = [], isLoading: scholarshipRequestsLoading } = useScholarshipRequestsList();
+  const { data: scholarshipRequests = [] } = useScholarshipRequestsList();
 
   const getCountByStatus = (status: ScholarshipRequestStatus) => {
     return scholarshipRequests?.filter((scholarshipRequest) => scholarshipRequest.status == status).length

@@ -13,12 +13,11 @@ import type { Item } from '../MenuItems';
 
 interface NavItemProps {
   item: Item;
-  level?: number;
   pathDirect: string;
   closeDrawer: () => void;
 }
 
-const NavItem = ({ item, level, pathDirect, closeDrawer }: NavItemProps) => {
+const NavItem = ({ item, pathDirect, closeDrawer }: NavItemProps) => {
   const isMobile = useIsMobile()
   const Icon = item.icon;
   const theme = useTheme();
