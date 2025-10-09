@@ -95,7 +95,7 @@ const localizationConfig = {
   unpinAll: 'Desanclar todo',
 }
 
-export interface CustomMaterialTableProps<T extends Record<string, unknown> = {}> {
+export interface CustomMaterialTableProps<T extends object = object> {
   columns: MRT_ColumnDef<T>[];
   data: T[];
   isLoadingError: boolean;
@@ -106,7 +106,7 @@ export interface CustomMaterialTableProps<T extends Record<string, unknown> = {}
   renderRowActions?: ({ row }: { row: MRT_Row<T> }) => ReactNode;
 }
 
-const useCustomMaterialTable = <T extends Record<string, any> = {}>({
+const useCustomMaterialTable = <T extends object = object>({
   columns,
   data,
   isLoading,

@@ -6,7 +6,6 @@ import {
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
-import type { ReactNode } from 'react';
 
 const Menuitems: Item[] = [
   {
@@ -66,7 +65,7 @@ const Menuitems: Item[] = [
 export interface Item {
   id?: number | string,
   title?: string,
-  icon?: ReactNode | ((props: TablerIconsProps) => JSX.Element),
+  icon?: ((props: TablerIconsProps) => JSX.Element),
   href?: string,
   external?: boolean,
   disabled?: boolean,

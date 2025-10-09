@@ -70,7 +70,7 @@ const Dinings = () => {
                                     <Tabs
                                         variant="fullWidth"
                                         value={mealTimeActiveTab}
-                                        onChange={(e, newValue) => setMealTimeActiveTab(newValue)}
+                                        onChange={(_, newValue) => setMealTimeActiveTab(newValue)}
                                     >
                                         <Tab value={'Almuerzo'} label="Almuerzo" />
                                         <Tab value={'Cena'} label="Cena" />

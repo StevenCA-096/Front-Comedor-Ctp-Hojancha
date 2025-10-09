@@ -1,4 +1,6 @@
-const typography = {
+import type { TypographyOptions } from "@mui/material/styles/createTypography";
+
+const typography: TypographyOptions = {
   fontFamily: "'Red Hat Display', sans-serif",
   h1: { 
     fontWeight: 600,

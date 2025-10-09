@@ -1,5 +1,5 @@
 import type { LoginDto } from "@/types/common/auth/loginDto"
-import type { User } from "@/types/common/user/User"
+import type { User } from "@/types/common/user/user"
 import { api } from "@api/api"
 
 //=== LOGINS O THE API IF SUCCESS RETURNS THE USER

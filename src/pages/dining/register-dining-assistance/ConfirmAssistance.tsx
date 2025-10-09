@@ -2,7 +2,7 @@ import { Typography, useTheme } from "@mui/material"
 import { Box } from "@mui/system"
 import BlankCard from "@components/shared/BlankCard"
 import { Check, Close } from "@mui/icons-material"
-import type StudentPaymentInfo from "@/types/dining/dining-student/studentPaymentInfo"
+import type StudentPaymentInfo from "@/types/dining/dining-student/dtos/studentPaymentInfo"
 
 interface ConfirmAssistanceProps {
     studentPaymentData: StudentPaymentInfo

@@ -56,7 +56,7 @@ const TodayAssistancesCard = ({ data }: TodayPaymentsCardProps) => {
               <Typography variant="subtitle2" fontSize={15} color="textSecondary">
                 {
                   data?.dining?.openingDate ?
-                    formatDateStringWithDays(data?.dining?.openingDate)
+                    formatDateStringWithDays(data?.dining?.openingDate as string)
                     :
                     'No abierta'
                 }

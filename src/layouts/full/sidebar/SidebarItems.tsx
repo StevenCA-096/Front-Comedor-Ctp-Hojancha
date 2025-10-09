@@ -6,8 +6,8 @@ import NavItem from './NavItem';
 import NavGroup from './NavGroup/NavGroup';
 
 interface SidebarItemsProps {
-  collapsed: boolean,
-  closeDrawer: () =>  void
+  collapsed?: boolean,
+  closeDrawer?: () =>  void
 }
 
 const SidebarItems = ({ collapsed = false, closeDrawer }: SidebarItemsProps) => {

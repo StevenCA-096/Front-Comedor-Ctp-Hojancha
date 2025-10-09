@@ -1,10 +1,13 @@
-import React, { Suspense } from "react";
+import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
+import {  Suspense, type ComponentType } from "react";
 
-const Loadable = (Component) => (props) =>
-(
-  <Suspense>
-    <Component {...props} />
-  </Suspense>
-);
+// 👇 Tipamos correctamente el componente y las props
+const Loadable =
+  <P extends object>(Component: ComponentType<P>) =>
+  (props: P) => (
+    <Suspense fallback={<LoadingScreen sx={{height:'100dvh'}}/>}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 export default Loadable;
