@@ -12,6 +12,8 @@ import { createDiningStudentSchema } from "@/utils/validation-form-schemas/dinin
 import type { DiningStudentFormData } from "@/types/dining/dining-student/dtos/createDiningStudentDto"
 import type StudentPaymentInfo from "@/types/dining/dining-student/dtos/studentPaymentInfo"
 import type { PaymentMethods } from "@/types/dining/dining-student/entities/DiningStudent"
+import successPaymentSound from '@assets/sounds/payment-assistance-register/payment-success.mp3'
+import { playSound } from "@/utils/audio/playAudio"
 
 interface ConfirmPaymentProps {
     studentPaymentData: StudentPaymentInfo;
@@ -50,6 +52,7 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
             diningId: studentPaymentData?.diningId,
             studentCedula: parseInt(studentPaymentData?.student?.cedula.toString())
         }).finally(() => setLoading(false))
+        playSound(successPaymentSound)
         setHasPay(true)
 
         document.getElementById('cedula-scan')?.focus()

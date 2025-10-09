@@ -1,6 +1,6 @@
 const typography = {
-  fontFamily: "'Plus Jakarta Sans', sans-serif;",
-  h1: {
+  fontFamily: "'Red Hat Display', sans-serif",
+  h1: { 
     fontWeight: 600,
     fontSize: '2.25rem',
     lineHeight: '2.75rem',

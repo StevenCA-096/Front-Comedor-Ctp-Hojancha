@@ -70,7 +70,7 @@ const DiningsTable = () => {
                 <TableButton
                     Icon={<IconEye size={16} />}
                     onClick={() => navigate(`dining-details/${row.original.id}`)}
-                    label="Ver "
+                    label="Ver"
                 />
                 <TableButton
                     Icon={<Payment fontSize="small" />}

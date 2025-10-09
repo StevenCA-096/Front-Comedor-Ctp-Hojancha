@@ -25,7 +25,7 @@ const Login2 = () => {
           },
         }}
       >
-        <Grid container justifyContent="center" sx={{ height: '100vh' }}>
+        <Grid container justifyContent="center" sx={{ height: '100dvh' }}>
           <Grid
             item
             xs={11}

@@ -18,8 +18,8 @@ const DiningDetails = Loadable(lazy(() => import('../pages/dining/dining-details
 const RegisterDiningPayment = Loadable(lazy(() => import('../pages/dining/register-dining-payment/RegisterDiningPayment')));
 const RegisterDiningAssistance = Loadable(lazy(() => import('../pages/dining/register-dining-assistance/RegisterDiningAssistance')));
 //Scholarship requests
-const ScholarshipRequests = Loadable(lazy(() => import('../pages/scholarship-requests/ScholarshipRequests')))
-const ScholarshipRequestDetails = Loadable(lazy(() => import('@/pages/scholarship-requests/ScholarshipRequestDetails'))) 
+const ScholarshipRequests = Loadable(lazy(() => import('../pages/scholarship-requests/scholarship-requests/ScholarshipRequests')))
+const ScholarshipRequestDetails = Loadable(lazy(() => import('@/pages/scholarship-requests/scholarship-request-details/ScholarshipRequestDetails'))) 
 //Scholarship students
 const ScholarshipStudents = Loadable(lazy(() => import('../pages/scholarship-students/ScholarshipStudents')))
 //Reports

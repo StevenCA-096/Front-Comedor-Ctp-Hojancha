@@ -14,7 +14,7 @@ import toast from "react-hot-toast"
 import { formatDateStringWithDays } from "@utils/date/format-date"
 import successSound from '@assets/sounds/payment-assistance-register/ok.wav'
 import errSound from '@assets/sounds/payment-assistance-register/err.wav'
-import { playSound } from "../../../utils/audio/playAudio"
+import { playSound } from "@utils/audio/playAudio"
 import { useQuery } from "@tanstack/react-query"
 import type StudentPaymentInfo from "@/types/dining/dining-student/dtos/studentPaymentInfo"
 
@@ -81,7 +81,7 @@ const RegisterDiningAssistance = () => {
   return (
     <PageContainer
       title={
-        `Registrar asistencias de ${exists?.mealTime} - ${exists?.openingDate && formatDateStringWithDays(exists?.openingDate)}`
+        `Registrar asistencias de ${exists?.mealTime} - ${exists?.openingDate && formatDateStringWithDays(exists?.openingDate as string)}`
       }
       showBackButton>
       {

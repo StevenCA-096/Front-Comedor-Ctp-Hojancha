@@ -1,28 +1,21 @@
-import { Button } from "@mui/material";
+import type { ColorOptions } from "@/theme/ColorOptions";
+import { IconButton, Tooltip } from "@mui/material";
 import type { ReactNode } from "react";
 
 interface TableButtonProps {
     Icon: ReactNode;
-    label: string;
-    onClick: () => void;
+    label?: string;
+    onClick: () => void,
+    color?: ColorOptions
 }
 
-const TableButton = ({ Icon, label, onClick }: TableButtonProps) => {
+const TableButton = ({ Icon, label, onClick, color = 'info' }: TableButtonProps) => {
     return (
-        <Button
-            fullWidth
-            size="small"
-            variant="outlined"
-            startIcon={Icon}
-            onClick={onClick}
-            sx={{
-                fontSize: '0.75rem',
-                minWidth: 'auto',
-                textTransform: 'none',
-            }}
-        >
-            {label}
-        </Button>
+        <Tooltip title={label}>
+            <IconButton onClick={onClick} color={color} sx={{':hover':{bgcolor:`${color}.light`}}}>
+                {Icon}
+            </IconButton>
+        </Tooltip>
     );
 };
 

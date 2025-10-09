@@ -1,9 +1,8 @@
 import TableButton from "@/components/Buttons/TableButton";
 import CustomChip from "@/components/Chip/CustomChip";
-import useScholarshipRequestsList from "@/hooks/api/scholarship/queries/useScholarshipRequestsList";
+import useScholarshipRequestsList from "@/hooks/api/scholarship-request/queries/useScholarshipRequestsList";
 import type { ColorOptions } from "@/theme/ColorOptions";
 import type { ScholarshipRequest, ScholarshipRequestStatus } from "@/types/scholarship/scholarship_request/entities/ScholarshipRequest";
-import type { Student } from "@/types/student/Student";
 import { formatDateWithDaysAndHour } from "@/utils/date/format-date";
 import useCustomMaterialTable from "@/utils/mui-datatable/materialTableConfig";
 import { IconEye } from "@tabler/icons-react";

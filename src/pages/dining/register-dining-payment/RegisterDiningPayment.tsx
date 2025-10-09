@@ -56,7 +56,7 @@ const RegisterDiningPayment = () => {
   return (
     <PageContainer
       title={
-        `Registrar pagos de ${exists?.mealTime} - ${exists?.openingDate && formatDateStringWithDays(exists?.openingDate)}`
+        `Registrar pagos de ${exists?.mealTime} - ${exists?.openingDate && formatDateStringWithDays(exists?.openingDate as string)}`
       }
       showBackButton
     >

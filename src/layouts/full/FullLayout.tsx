@@ -42,7 +42,7 @@ const FullLayout = () => {
           minHeight: '100vh',
           width: '100%',
           // Solo ajusta margin en desktop cuando está abierto
-          ml: !isMobile && isDesktopSidebarOpen ? `${SIDEBAR_WIDTH}px` : 0,
+          ml: !isMobile  ? `${SIDEBAR_WIDTH}px` : 0,
           transition: 'margin-left 0.3s ease',
         }}
       >
