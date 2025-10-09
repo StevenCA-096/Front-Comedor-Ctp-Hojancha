@@ -4,7 +4,7 @@ import { IconUser } from "@tabler/icons-react";
 import type { Responsible } from "@/types/student/Responsible";
 
 const ResponsibleInfo = ({ responsible }: {responsible: Responsible | undefined}) => (
-    <Box p={3} minHeight={{xs:'auto',md:250}}>
+    <Box p={3} minHeight={{xs:'100%',md:250}}>
       <SectionTitle icon={<IconUser size={22} />} title="Responsable" />
       <Stack spacing={1}>
         <InfoRow label="Cédula" value={responsible?.cedula.toString()} />

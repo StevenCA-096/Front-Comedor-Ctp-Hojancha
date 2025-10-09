@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
@@ -23,7 +23,7 @@ const FullLayout = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Grid2 sx={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
       <Sidebar
         isMobile={isMobile}
@@ -33,7 +33,7 @@ const FullLayout = () => {
       />
 
       {/* Main Content */}
-      <Box
+      <Grid2
         component="main"
         sx={{
           flexGrow: 1,
@@ -50,12 +50,12 @@ const FullLayout = () => {
         <Header toggleSidebar={handleToggleSidebar} />
 
         {/* Page Content */}
-        <Box sx={{ flexGrow: 1, p: 3 }}>
+        <Grid2 sx={{ flexGrow: 1, p: 3 }}>
           <Outlet />
-        </Box>
+        </Grid2>
 
         {/* Footer */}
-        <Box
+        <Grid2
           component="footer"
           sx={{
             py: 3,
@@ -65,9 +65,9 @@ const FullLayout = () => {
           }}
         >
           Sistema de comedor Colegio Técnico Profesional de Hojancha
-        </Box>
-      </Box>
-    </Box>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   );
 };
 

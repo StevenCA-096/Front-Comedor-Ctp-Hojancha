@@ -103,7 +103,8 @@ export interface CustomMaterialTableProps<T extends object = object> {
   isFetching: boolean;
   renderTopToolbarCustomActions?: (() => ReactNode) | null;
   enableRowActions?: boolean;
-  renderRowActions?: ({ row }: { row: MRT_Row<T> }) => ReactNode;
+  renderRowActions?: ({ row }: { row: MRT_Row<T> }) => ReactNode,
+  enableRowSelection?: boolean
 }
 
 const useCustomMaterialTable = <T extends object = object>({
@@ -115,11 +116,12 @@ const useCustomMaterialTable = <T extends object = object>({
   renderTopToolbarCustomActions,
   enableRowActions = false,
   renderRowActions,
+  enableRowSelection = true
 }: CustomMaterialTableProps<T>) => {
   const table = useMaterialReactTable<T>({
     columns,
     data,
-    enableRowSelection: true,
+    enableRowSelection: enableRowSelection,
     localization: localizationConfig,
     positionActionsColumn: 'last',
     positionCreatingRow: 'top',

@@ -96,6 +96,7 @@ const ScholarshipRequestsTable = () => {
                 />
             </div>
         ),
+        enableRowSelection: false
     });
 
     return (
