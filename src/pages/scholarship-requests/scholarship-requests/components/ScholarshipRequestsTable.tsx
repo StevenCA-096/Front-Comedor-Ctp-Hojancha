@@ -68,7 +68,7 @@ const ScholarshipRequestsTable = () => {
             header: 'Fecha de resolución',
             Cell: ({ cell }) => (
                 <CustomChip
-                    label={cell.getValue<string>() || 'Sin Resolución'}
+                    label={formatDateWithDaysAndHour(new Date(cell.getValue<string>())) || 'Sin Resolución'}
                     color={cell.getValue() ? 'primary' : 'warning'}
                 />
             ),

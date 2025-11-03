@@ -6,7 +6,7 @@ import {
   Stack,
   Alert
 } from "@mui/material";
-import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
+import LoadingScreen from "@components/LoadingScreen/LoadingScreen";
 import AssignScholarship from "./components/AssignScholarship";
 import ResponsibleInfo from "./components/ResponsibleInfo";
 import StudentInfo from "./components/StudentInfo";
