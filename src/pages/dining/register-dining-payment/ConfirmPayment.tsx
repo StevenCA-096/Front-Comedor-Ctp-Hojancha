@@ -5,7 +5,7 @@ import { Chip, Grid, Typography } from "@mui/material"
 import CustomSelect from "@components/forms/theme-elements/CustomSelect"
 import CustomButton from "@components/Buttons/CustomButton"
 import { Check, Close } from "@mui/icons-material"
-import useCreateDiningStudentMutation from "@hooks/mutation/dining-student/createDiningStudentMutation"
+import useCreateDiningStudentMutation from "@/hooks/api/dining-student/mutations/createDiningStudentMutation"
 import { useState, type Dispatch, type SetStateAction } from "react"
 import BlankCard from "@components/shared/BlankCard"
 import { createDiningStudentSchema } from "@/utils/validation-form-schemas/dining_student/createDiningStudentSchema"
@@ -63,7 +63,7 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
             <BlankCard>
                 <Grid container p={4}>
                     <Grid item xs={12} mb={2} textAlign={'center'}>
-                        <Typography textAlign={'center'} color={'blue'} fontWeight={'bold'} fontSize={18}>
+                        <Typography textAlign={'center'} color={'primary'} fontWeight={'bold'} fontSize={18}>
                             Detalle de pago
                         </Typography>
                         <Chip

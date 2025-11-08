@@ -11,13 +11,6 @@ const useScholarshipRequestsByID = (
     queryKey: ['scholarship-request-'+id],
     queryFn: () => getScholarshipRequestById(id),
     refetchOnWindowFocus: false,
-    retry: (failureCount, error) => {
-      // No retry en errores 4xx
-      if (error.response?.status && error.response.status == 401) {
-        return false;
-      }
-      return failureCount < 3;
-    },
     ...options
   })
 }

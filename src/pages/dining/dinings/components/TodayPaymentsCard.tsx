@@ -11,16 +11,14 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
   const theme = useTheme()
   const [openModal, setOpenModal] = useState(false)
   const navigate = useNavigate()
-  console.log(error)
+  
   const handleContinue = () => {
     if (error) {
-      setOpenModal(true)
       return setOpenModal(true)
     }
     navigate(`/register-dining-payment/diningId/${data?.dining?.id}`)
   }
 
-  console.log(data?.dining?.openingDate)
   return (
     <DashboardCard
       title="Registrar pago"

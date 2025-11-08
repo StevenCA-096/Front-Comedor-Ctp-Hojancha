@@ -17,9 +17,11 @@ const Dinings = Loadable(lazy(() => import('../pages/dining/dinings/Dinings')));
 const DiningDetails = Loadable(lazy(() => import('../pages/dining/dining-details/DiningDetails')));
 const RegisterDiningPayment = Loadable(lazy(() => import('../pages/dining/register-dining-payment/RegisterDiningPayment')));
 const RegisterDiningAssistance = Loadable(lazy(() => import('../pages/dining/register-dining-assistance/RegisterDiningAssistance')));
+//Scholarships
+const Scholarships = Loadable(lazy(() => import('../pages/scholarship/Scholarships')))
 //Scholarship requests
 const ScholarshipRequests = Loadable(lazy(() => import('../pages/scholarship-requests/scholarship-requests/ScholarshipRequests')))
-const ScholarshipRequestDetails = Loadable(lazy(() => import('@/pages/scholarship-requests/scholarship-request-details/ScholarshipRequestDetails'))) 
+const ScholarshipRequestDetails = Loadable(lazy(() => import('@/pages/scholarship-requests/scholarship-request-details/ScholarshipRequestDetails')))
 //Scholarship students
 const ScholarshipStudents = Loadable(lazy(() => import('../pages/scholarship-students/ScholarshipStudents')))
 //Reports
@@ -53,10 +55,17 @@ const Router = [
       },
       { path: '/register-dining-assistance/diningId/:diningId', exact: true, element: <RegisterDiningAssistance /> },
       //Scholarship
-      { 
-        path: '/scholarship-requests', 
+      {
+        path: '/scholarships',
         exact: true,
-        children:[
+        children: [
+          { path: '', exact: true, element: <Scholarships /> },
+        ]
+      },
+      {
+        path: '/scholarship-requests',
+        exact: true,
+        children: [
           { path: '', exact: true, element: <ScholarshipRequests /> },
           { path: 'details/:id', exact: true, element: <ScholarshipRequestDetails /> },
         ]

@@ -28,7 +28,7 @@ const Dashboard = () => {
       refetchOnWindowFocus: false
     })
 
-  const {
+  const { 
     data: todayData,
     error: todayDataError,
     isLoading: todayDataLoading } = useQuery({
@@ -51,7 +51,7 @@ const Dashboard = () => {
           <Grid container spacing={3}>
             <Grid container item spacing={2} xs={12}>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Total de estudiantes'} value={2} color='primary' />
+                <StatsCard icon={<IconUserStar />} title={'Total de estudiantes'} value={2} color='warning' />
               </Grid>
               <Grid item xs={12} md={3}>
                 <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={2} color='success' />

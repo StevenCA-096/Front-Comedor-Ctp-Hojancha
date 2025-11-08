@@ -10,6 +10,6 @@ export const login = async (credentials: LoginDto) => {
 
 //=== LOGOUT FROM API ONLY RETURNS STATUS 200
 export const logoutFromApi = async () => {
-  const result = (await api.post('auth/signout')).data
+  const result = (await api.post('auth/logout')).data
   return result
 }

@@ -11,7 +11,7 @@ import type { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 interface CustomTextFieldProps<T extends FieldValues> {
   externalLabel?: boolean
   label: string
-  name?: Path<T> // 🔹 ahora opcional
+  name?: Path<T>
   register?: UseFormRegister<T>
   type?: string
   Icon?: ReactNode
@@ -25,6 +25,8 @@ interface CustomTextFieldProps<T extends FieldValues> {
   value?: string | number
   onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>
   id?: string
+  placeholder?: string
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>
 }
 
 const CustomTextField = <T extends FieldValues>({
@@ -44,8 +46,24 @@ const CustomTextField = <T extends FieldValues>({
   value,
   onKeyDown,
   id,
+  placeholder,
+  inputProps,
 }: CustomTextFieldProps<T>) => {
   const theme = useTheme()
+
+  // 🔥 SOLUCIÓN: Combinar el onChange de RHF con el personalizado
+  const registeredProps = register && name ? register(name) : {}
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    // Primero ejecuta el onChange de React Hook Form
+    if ('onChange' in registeredProps && typeof registeredProps.onChange === 'function') {
+      registeredProps.onChange(e)
+    }
+    // Luego ejecuta el onChange personalizado si existe
+    if (onChangeFn) {
+      onChangeFn(e)
+    }
+  }
 
   return (
     <>
@@ -57,20 +75,22 @@ const CustomTextField = <T extends FieldValues>({
         variant={variant}
         fullWidth
         error={!!error}
-        {...(register && name ? register(name) : {})} 
+        {...registeredProps}
+        onChange={handleChange} // 🔥 Usa el onChange combinado
         name={name}
         type={type}
         label={!externalLabel ? label : undefined}
         disabled={disabled}
         autoFocus={autoFocus}
         autoComplete={autoComplete}
-        onChange={onChangeFn}
         value={value}
+        placeholder={placeholder}
         InputProps={{
           startAdornment: Icon && (
             <InputAdornment position="start">{Icon}</InputAdornment>
           ),
         }}
+        inputProps={inputProps}
       />
 
       <FormHelperText

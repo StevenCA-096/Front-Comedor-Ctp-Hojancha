@@ -11,13 +11,6 @@ const useScholarshipsList = (
     queryFn: getScholarships,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
-    retry: (failureCount, error) => {
-      // No retry en errores 4xx
-      if (error.response?.status && error.response.status == 401) {
-        return false;
-      }
-      return failureCount < 3;
-    },
     ...options
   })
 }

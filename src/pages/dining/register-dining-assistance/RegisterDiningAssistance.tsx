@@ -32,23 +32,22 @@ const RegisterDiningAssistance = () => {
       return getDiningById(parseInt(diningId));
     },
     queryKey: ['today-dining-stats'],
-    retry: false,
     refetchOnWindowFocus: false,
   })
 
   //Fetch student info, if there is a student and he has already paid, plays a success sound, if not an err sound
   //if the student has already paid but also confirrmed his assistance it will play an err sound
   //if no student is found it will also trigger an err sound
-  const fetchData = async (data: {cedula: number}) => {
+  const fetchData = async (data: { cedula: number }) => {
     if (!diningId) {
       return setError('No se brindó el ID')
     }
-    
+
     setLoading(true)
     try {
       const result = await getStudentPaymentInfo(data?.cedula, parseInt(diningId)).finally(() => setLoading(false)) as StudentPaymentInfo
       setStudentPaymentInfo(result)
-      console.log(result)
+
       if (result?.hasPay) {
         try {
           const confirmed = await confirmStudentAssistance(result?.diningStudentId?.id)

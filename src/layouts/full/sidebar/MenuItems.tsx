@@ -1,6 +1,7 @@
 import {
   IconClipboard, IconCopy, IconLayoutDashboard, IconReceipt,
   IconReceipt2,
+  IconTableOptions,
   IconUserStar,
   type TablerIconsProps
 } from '@tabler/icons-react';
@@ -31,6 +32,12 @@ const Menuitems: Item[] = [
   {
     navlabel: true,
     subheader: 'Becas',
+  },
+  {
+    id: uniqueId(),
+    title: 'Catalogo de becas',
+    icon: IconTableOptions,
+    href: '/scholarships',
   },
   {
     id: uniqueId(),
