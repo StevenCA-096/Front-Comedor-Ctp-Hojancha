@@ -32,12 +32,13 @@ const DiningsTable = () => {
         {
             accessorKey: 'openingDate',
             header: 'Fecha',
-            size: 200,
+            size: 170,
             Cell: ({ cell }) => cell.getValue() ? formatDateStringWithDays(cell.getValue() as string) : 'No disponible',
         },
         {
             accessorKey: 'closeDate',
             header: 'Status',
+            size:100,
             Cell: ({ cell }) => (
                 <CustomChip
                     label={cell.getValue() ? 'Cerrada' : 'Abierta'}
@@ -48,7 +49,7 @@ const DiningsTable = () => {
         {
             accessorKey: 'mealTime',
             header: 'Hora',
-            size: 120,
+            size: 100,
             Cell: ({ cell }) => (
                 <CustomChip
                     label={cell.getValue<string>()}
@@ -59,6 +60,7 @@ const DiningsTable = () => {
         {
             accessorKey: 'price',
             header: 'Precio',
+            size: 100,
             Cell: ({ cell }) => `₡${cell.getValue<number>()}`,
         },
     ];
