@@ -5,7 +5,7 @@ export interface Student {
 
     id: number;
 
-    cedula: bigint;
+    cedula: number;
 
     name: string;
 

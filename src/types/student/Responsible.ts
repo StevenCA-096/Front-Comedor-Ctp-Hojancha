@@ -4,7 +4,7 @@ export interface Responsible {
 
     id: number;
 
-    cedula: bigint;
+    cedula: number;
 
     name: string;
 

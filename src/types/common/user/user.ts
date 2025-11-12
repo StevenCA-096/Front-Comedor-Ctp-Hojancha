@@ -2,9 +2,9 @@ import type { Admin } from "../admin/admin";
 
 export interface User {
     id: number;
-    dni: bigint;
+    dni: number;
     email: string;
-    roles: [];    
+    roles: string[];    
     status: boolean;
     createdAt: Date;
     admin: Admin;
