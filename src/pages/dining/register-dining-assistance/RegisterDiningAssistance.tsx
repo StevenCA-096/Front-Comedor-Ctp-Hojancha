@@ -53,9 +53,9 @@ const RegisterDiningAssistance = () => {
           const confirmed = await confirmStudentAssistance(result?.diningStudentId?.id)
           if (!isAxiosError(confirmed)) {
             toast.success('Asistencia confirmada')
-            playSound(successSound)
+            return playSound(successSound)
           } else {
-            playSound(errSound)
+            return playSound(errSound)
           }
         } catch (error) {
           console.log(error)

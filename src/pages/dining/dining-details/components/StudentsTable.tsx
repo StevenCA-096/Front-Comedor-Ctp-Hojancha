@@ -1,14 +1,18 @@
-import { CardContent, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { useState } from "react"
+import { CardContent, Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TablePagination } from "@mui/material"
 import BlankCard from "@components/shared/BlankCard"
 import type { DiningStudent } from "@/types/dining/dining-student/entities/DiningStudent"
 
 // Componente para mostrar tabla de estudiantes
 interface StudentsTableProps {
-    students: DiningStudent [] | undefined,
-    title:string
+    students: DiningStudent[] | undefined,
+    title: string
 }
 
 const StudentsTable = ({ students, title }: StudentsTableProps) => {
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+
     const formatTime = (timeString: string) => {
         return new Date(timeString).toLocaleTimeString('es-ES', {
             hour: '2-digit',
@@ -27,10 +31,25 @@ const StudentsTable = ({ students, title }: StudentsTableProps) => {
         }
     }
 
+    const handleChangePage = (_event: unknown, newPage: number) => {
+        setPage(newPage)
+    }
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 5))
+        setPage(0)
+    }
+
+    // Calcular estudiantes a mostrar en la página actual
+    const paginatedStudents = students?.slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage
+    )
+
     return (
         <BlankCard>
             <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                     {title}
                 </Typography>
                 <TableContainer component={Paper} variant="outlined">
@@ -45,7 +64,7 @@ const StudentsTable = ({ students, title }: StudentsTableProps) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {students?.map((student) => (
+                            {paginatedStudents?.map((student) => (
                                 <TableRow key={student.id}>
                                     <TableCell>
                                         <Typography variant="body2">
@@ -53,7 +72,7 @@ const StudentsTable = ({ students, title }: StudentsTableProps) => {
                                         </Typography>
                                     </TableCell>
                                     <TableCell>
-                                        {formatTime(student?.timeIn.toString())}
+                                        {formatTime(student?.timeIn?.toString())}
                                     </TableCell>
                                     <TableCell>
                                         <Chip
@@ -74,6 +93,19 @@ const StudentsTable = ({ students, title }: StudentsTableProps) => {
                             ))}
                         </TableBody>
                     </Table>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 14, 21]}
+                        component="div"
+                        count={students?.length || 0}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        labelRowsPerPage="Filas por página:"
+                        labelDisplayedRows={({ from, to, count }) => 
+                            `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
+                        }
+                    />
                 </TableContainer>
             </CardContent>
         </BlankCard>
