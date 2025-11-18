@@ -1,5 +1,5 @@
 import { Alert, Box, IconButton, Tooltip, useTheme } from "@mui/material";
-import { formatDateStringWithDays } from "@utils/date/format-date";
+import { formatDateStringWithDays, formatDateWithDays } from "@utils/date/format-date";
 import { IconEye, IconUserCheck } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import { Add, Payment } from "@mui/icons-material";
@@ -17,21 +17,28 @@ const DiningsTable = () => {
     const theme = useTheme()
     console.log('rendered')
     // Loads all the dinings
-    const { data: dinings = [], isLoading: diningsLoading, error: diningsError, isFetching, refetch } = useDiningList();
+    const { 
+        data: dinings = [], 
+        isLoading: diningsLoading, 
+        error: diningsError, 
+        isFetching, 
+        refetch 
+    } = useDiningList();
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<boolean>(false)
-
+    console.log(dinings)
     // Define columns for Material React Table
     const columns: MRT_ColumnDef<Dining>[] = [
         {
             accessorKey: 'openingDate',
             header: 'Fecha',
-            size: 200,
-            Cell: ({ cell }) => formatDateStringWithDays(cell.getValue<string>()),
+            size: 170,
+            Cell: ({ cell }) => cell.getValue() ? formatDateStringWithDays(cell.getValue() as string) : 'No disponible',
         },
         {
             accessorKey: 'closeDate',
             header: 'Status',
+            size:100,
             Cell: ({ cell }) => (
                 <CustomChip
                     label={cell.getValue() ? 'Cerrada' : 'Abierta'}
@@ -42,7 +49,7 @@ const DiningsTable = () => {
         {
             accessorKey: 'mealTime',
             header: 'Hora',
-            size: 120,
+            size: 100,
             Cell: ({ cell }) => (
                 <CustomChip
                     label={cell.getValue<string>()}
@@ -53,6 +60,7 @@ const DiningsTable = () => {
         {
             accessorKey: 'price',
             header: 'Precio',
+            size: 100,
             Cell: ({ cell }) => `₡${cell.getValue<number>()}`,
         },
     ];
@@ -102,6 +110,7 @@ const DiningsTable = () => {
             </div>
         ),
     });
+
 
     if (diningsError) {
         return <Alert severity="error">Error al cargar los datos de las cajas</Alert>;

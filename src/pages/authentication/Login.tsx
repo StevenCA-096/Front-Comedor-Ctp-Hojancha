@@ -4,6 +4,7 @@ import { Grid, Box, Card, Typography, Divider } from '@mui/material';
 import AuthLogin from './auth/AuthLogin';
 import PageMeta from '@components/container/page/PageMeta';
 import Logo from '@assets/images/logos/CTP/Logo_ctp-mep.png'
+import LogoMepInstitution from '@/components/Logo/LogoMepInstitution';
 
 const Login2 = () => {
 
@@ -15,7 +16,6 @@ const Login2 = () => {
           position: 'relative',
           '&:before': {
             content: '""',
-            background: 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)',
             backgroundSize: '400% 400%',
             animation: 'gradient 15s ease infinite',
             position: 'absolute',
@@ -37,9 +37,7 @@ const Login2 = () => {
             alignItems="center"
           >
             <Card elevation={9} sx={{ p: { xs: 5, md: 6 }, zIndex: 1, width: '100%' }}>
-              <Box
-                component={'img'}
-                src={Logo}
+              <LogoMepInstitution
                 sx={{
                   objectFit: "cover",
                   width: '100%',

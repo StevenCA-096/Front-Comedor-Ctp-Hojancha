@@ -1,5 +1,16 @@
-import { Dialog, DialogContent, DialogTitle, Typography, useTheme } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Slide, Typography, useTheme } from '@mui/material'
+import type { TransitionProps } from '@mui/material/transitions';
 import type { ReactNode } from 'react'
+import React from 'react';
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 interface CustomModalProps {
     children: ReactNode, 
@@ -11,7 +22,11 @@ interface CustomModalProps {
 const CustomModal = ({ children, title, onClose, open }: CustomModalProps) => {
     const theme = useTheme()
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose}
+        slots={{
+          transition: Transition,
+        }}
+        >
             <DialogTitle
                 sx={{
                     background: theme.palette.primary.main,

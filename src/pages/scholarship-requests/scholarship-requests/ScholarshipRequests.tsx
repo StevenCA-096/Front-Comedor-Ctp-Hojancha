@@ -10,14 +10,14 @@ const ScholarshipRequests = () => {
   const { data: scholarshipRequests = [] } = useScholarshipRequestsList();
 
   const getCountByStatus = (status: ScholarshipRequestStatus) => {
-    return scholarshipRequests?.filter((scholarshipRequest) => scholarshipRequest.status == status).length
+    return scholarshipRequests && scholarshipRequests.length > 0 ? scholarshipRequests?.filter((scholarshipRequest) => scholarshipRequest.status == status)?.length : 0
   }
   return (
     <PageContainer title={'Solicitudes de beca'} >
       <Grid2 spacing={2} container>
         <Grid2 container size={{ xs: 12 }} spacing={2}>
           <Grid2 size={{ xs: 12, lg: 3 }}>
-            <StatsCard color="info" icon={<Check />} title={'Total'} value={scholarshipRequests.length} />
+            <StatsCard color="primary" icon={<Check />} title={'Total'} value={scholarshipRequests.length} />
           </Grid2>
           <Grid2 size={{ xs: 12, lg: 3 }}>
             <StatsCard color="success" icon={<Check />} title={'Aprobadas'} value={getCountByStatus('Aprobado')} />

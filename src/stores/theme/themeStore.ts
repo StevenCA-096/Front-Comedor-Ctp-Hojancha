@@ -19,7 +19,6 @@ const useThemeStore = create<ThemeState>()(
       
       getEffectiveTheme: () => {
         const { mode } = get();
-        console.log('re-rendered-sore')
         if (mode === 'system') {
           return window.matchMedia('(prefers-color-scheme: dark)').matches
             ? 'dark'

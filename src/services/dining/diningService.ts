@@ -4,6 +4,12 @@ import type { DiningDetailsDto } from "@/types/dining/dining/dtos/DiningDetailsD
 import type MealtimeStatsDto from "@/types/dining/dining/dtos/MealTimeStatsDto";
 import type { CreateDiningDto } from "@/types/dining/dining/dtos/CreateDiningDto";
 
+//=== DINING REPORTS BY DATE RANGE
+export const getReportByDateRange = async(startDate: string, endDate: string) => {
+    const { data } = await api.get<any>(`dining/report-by-date-range/startDate/${startDate}/endDate/${endDate}`);
+    return data;
+}
+
 //=== GETS ALL DININGS FROM API
 export const getDinings = async() => {
     const { data } = await api.get<Dining[]>('dining');

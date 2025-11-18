@@ -27,7 +27,6 @@ const Dinings = () => {
     } = useQuery<MealtimeStatsDto, AxiosError>({
         queryFn: () => getTodayStats(mealTimeActiveTab),
         queryKey: ['today-dining-stats-' + mealTimeActiveTab], // Incluir mealTimeActiveTab en el queryKey
-        retry: false,
         refetchOnWindowFocus: false,
         initialData: createEmptyMealtimeStats()
     })
@@ -78,7 +77,7 @@ const Dinings = () => {
                                 </Box>
 
                                 <Box mb={1}>
-                                    <TodayPaymentsCard data={todayDining} error={!!todayDiningError} refetch={refetch} />
+                                    <TodayPaymentsCard data={todayDining} error={!! todayDiningError} refetch={refetch} />
                                 </Box>
                                 <Box>
                                     <TodayAssistancesCard data={todayDining} loading={todayDiningLoading} error={!!todayDiningError} />

@@ -9,17 +9,8 @@ export function useDiningList(
 ) {
     return useQuery<Dining[], AxiosError>({
         queryKey: ['dinings'],
-        queryFn: getDinings,
-        staleTime: 5 * 60 * 1000,     // 5 min - suficiente para la mayoría
-        refetchOnWindowFocus: false,   // Avoid unnecesary refetch
+        queryFn: () => getDinings(),
         // Configuraciones de retry
-        retry: (failureCount, error) => {
-            // No retry en errores 4xx
-            if (error.response?.status && error.response.status == 401) {
-                return false;
-            }
-            return failureCount < 3;
-        },
         ...options
     });
 }

@@ -27,7 +27,8 @@ const AuthLogin = () => {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm({ resolver: zodResolver(userLoginSchema) })
+        setValue
+    } = useForm({ resolver: zodResolver(userLoginSchema), mode:"onChange" })
 
     const handleLoginSubmit = async (data: LoginDto) => {
         try {
@@ -66,6 +67,7 @@ const AuthLogin = () => {
                         externalLabel
                         Icon={<Lock />}
                         name={'password'}
+                        onChangeFn={(e) => setValue('password', e.target.value)}
                         type='password'
                         error={!!errors.password}
                         errorMessage={errors.password?.message}
