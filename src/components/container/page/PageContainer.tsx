@@ -4,7 +4,7 @@ import { ArrowBackIosNew } from '@mui/icons-material';
 import type { ReactNode } from 'react';
   
 interface PageContainerProps {
-  title: string;
+  title?: string;
   description?: string;
   children: ReactNode;
   showBackButton?: boolean
@@ -18,7 +18,6 @@ const PageContainer = ({ title, description = '', children, showBackButton = fal
       mt: 4,
       mb: 4,
       p: { xs: 2, sm: 3, md: 4 },
-      boxShadow: 2
     }}
   >
     <PageMeta title={title} description={description} />

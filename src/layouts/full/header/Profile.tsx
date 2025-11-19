@@ -9,10 +9,12 @@ import {
   ListItemText
 } from '@mui/material';
 
-import { IconListCheck, IconMail, IconUser } from '@tabler/icons-react';
+import { IconUser } from '@tabler/icons-react';
 import LogoutModalAlert from '../../../components/Modals/Auth/LogoutModalAlert';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate()
   const [anchorEl2, setAnchorEl2] = useState<Element | null>(null);
   const handleClick2 = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl2(event.currentTarget);
@@ -61,23 +63,11 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => navigate('/profile')}>
           <ListItemIcon>
             <IconUser width={20} />
           </ListItemIcon>
-          <ListItemText>My Profile</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <IconMail width={20} />
-          </ListItemIcon>
-          <ListItemText>My Account</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <IconListCheck width={20} />
-          </ListItemIcon>
-          <ListItemText>My Tasks</ListItemText>
+          <ListItemText>Perfil</ListItemText>
         </MenuItem>
         <Box mt={1} py={1} px={2}>
           <LogoutModalAlert />

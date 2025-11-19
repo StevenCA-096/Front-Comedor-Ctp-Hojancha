@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 interface PageMetaProps {
-  title: string; 
+  title?: string; 
   description: string; 
 }
 

@@ -1,16 +1,10 @@
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import Chart from 'react-apexcharts';
 import {
-  Box,
   Card,
   CardContent,
   Grid,
   Typography,
-  TextField,
-  Button,
   Chip,
   Stack,
   Divider,
@@ -19,18 +13,8 @@ import {
 import { CalendarMonth, Coffee, CreditCard, Money, TrendingUp } from '@mui/icons-material';
 import { IconCalendarCheck, IconMoon, IconUsers } from '@tabler/icons-react';
 import StatsCard from '@/components/Cards/StatsCard';
-
-
-// Schema de validación
-const reportSchema = z.object({
-  startDate: z.string().min(1, 'Fecha inicial requerida'),
-  endDate: z.string().min(1, 'Fecha final requerida'),
-}).refine((data) => {
-  return new Date(data?.startDate) <= new Date(data?.endDate);
-}, {
-  message: 'La fecha inicial debe ser menor o igual a la fecha final',
-  path: ['endDate'],
-});
+import PageContainer from '@/components/container/page/PageContainer';
+import DateRangeForm from './components/DateRangeForm';
 
 // Datos quemados
 const mockData: any = {
@@ -95,76 +79,6 @@ const mockData: any = {
       occurrences: 1
     }
   ]
-};
-
-// Formulario de fechas
-const DateRangeForm = ({ onSubmit }: any) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(reportSchema),
-    defaultValues: {
-      startDate: '2025-11-05',
-      endDate: '2025-11-06',
-    }
-  });
-
-  return (
-    <Card sx={{ mb: 3 }}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom fontWeight="600" sx={{ mb: 3 }}>
-          Seleccionar Período
-        </Typography>
-        <Box component="div" onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2} alignItems="flex-start">
-            <Grid item xs={12} md={4}>
-              <Controller
-                name="startDate"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Fecha Inicial"
-                    type="date"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    error={!!errors?.startDate}
-                    helperText={errors?.startDate?.message as string}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Controller
-                name="endDate"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Fecha Final"
-                    type="date"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    error={!!errors?.endDate}
-                    helperText={errors?.endDate?.message as string}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Button
-                onClick={handleSubmit(onSubmit)}
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{ height: '56px' }}
-              >
-                Generar Reporte
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </CardContent>
-    </Card>
-  );
 };
 
 const Reports = () => {
@@ -287,11 +201,7 @@ const Reports = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" fontWeight="700" gutterBottom sx={{ mb: 3 }}>
-        Reportes de Comedor
-      </Typography>
-
+    <PageContainer title='Reportes de Comedor'>
       <DateRangeForm onSubmit={handleGenerateReport} />
 
       {showReport && reportData && (
@@ -474,7 +384,7 @@ const Reports = () => {
           </Card>
         </>
       )}
-    </Box>
+    </PageContainer>
   );
 };
 
