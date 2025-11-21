@@ -20,8 +20,6 @@ const UserProfile = () => {
     return <PageContainer title='No hay usuario'><Alert>Inicie sesión.</Alert></PageContainer>
   }
 
-  const initials =  (user?.admin?.name, user?.admin?.firstLastName);
-
   return (
     <PageContainer>
       <Grid2 container spacing={3}>

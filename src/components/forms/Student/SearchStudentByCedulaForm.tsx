@@ -1,4 +1,3 @@
-import { Box } from "@mui/system"
 import CustomTextField from "../theme-elements/CustomTextField"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -6,8 +5,7 @@ import { studentSearchByCedulaSchema } from "@utils/validation-form-schemas/Stud
 import { IconUser } from "@tabler/icons-react"
 import CustomButton from "../../Buttons/CustomButton"
 import { Search } from "@mui/icons-material"
-import { Grid2, Stack } from "@mui/material"
-import useIsMobile from '@hooks/isMobile/useIsMobile'
+import { Grid2 } from "@mui/material"
 
 interface SearchStudentByCedulaFormProps {
     loading: boolean,
@@ -15,7 +13,6 @@ interface SearchStudentByCedulaFormProps {
 }
 
 const SearchStudentByCedulaForm = ({ loading, handleOnSubmit }: SearchStudentByCedulaFormProps) => {
-    const isMobile = useIsMobile()
 
     const {
         register,

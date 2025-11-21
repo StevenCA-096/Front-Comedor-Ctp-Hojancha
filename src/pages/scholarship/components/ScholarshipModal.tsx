@@ -43,7 +43,6 @@ const ScholarshipModal = ({ onClose, open, scholarship }: ScholarshipModalProps)
     register,
     handleSubmit, 
     reset,
-    setValue
   } = useForm({
     resolver: zodResolver(scholarshipSchema),
     defaultValues: {

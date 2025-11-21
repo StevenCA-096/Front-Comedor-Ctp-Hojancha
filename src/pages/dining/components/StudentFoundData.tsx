@@ -2,11 +2,7 @@ import { Check, Close } from '@mui/icons-material';
 import { 
     Avatar, 
     Chip, 
-    Divider, 
     Grid, 
-    List, 
-    ListItemIcon, 
-    ListItemText, 
     Typography,
     alpha,
     useTheme
