@@ -4,7 +4,7 @@ import { api } from "@api/api"
 
 //=== LOGINS O THE API IF SUCCESS RETURNS THE USER
 export const login = async (credentials: LoginDto) => {
-  const result = (await api.post<User>('auth/login', credentials)).data
+  const result = (await api.post<{user:User}>('auth/login', credentials)).data
   return result
 }
 

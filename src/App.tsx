@@ -8,11 +8,13 @@ import useThemeStore from '@stores/theme/themeStore';
 import { basedarkTheme } from './theme/dark/DarkTheme';
 import { baselightTheme } from './theme/light/LightTheme';
 import { queryClient } from './config/queryClient';
+import useApexChartsDarkMode from './hooks/IsDarkMode/useApexChartsDarkMode';
 
 function App() {
   const routing = useRoutes(Router);
   const { mode, getEffectiveTheme } = useThemeStore();
-  
+
+  //Handles theme mode
   const effectiveTheme = useMemo(() => {
     return getEffectiveTheme();
   }, [mode, getEffectiveTheme]);
@@ -21,6 +23,9 @@ function App() {
     () => (effectiveTheme === 'dark' ? basedarkTheme : baselightTheme),
     [effectiveTheme]
   );
+
+  //Hook to keep apex charts mdoe sincronized
+  useApexChartsDarkMode(effectiveTheme)
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -15,6 +15,7 @@ interface CustomButtonProps {
   color?: ButtonProps['color']
   icon?: ReactNode
   size?: ButtonProps['size']
+  disabled?: boolean
 }
 
 const CustomButton = ({
@@ -29,6 +30,7 @@ const CustomButton = ({
   color = 'primary',
   icon = null,
   size = 'medium',
+  disabled
 }: CustomButtonProps) => {
   return (
     <Button
@@ -39,7 +41,7 @@ const CustomButton = ({
       type={type}
       color={color}
       sx={sx}
-      disabled={loading}
+      disabled={loading || disabled}
       startIcon={!loading && label && icon}
       disableRipple={dissableRipple}
       size={size}

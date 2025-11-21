@@ -1,6 +1,6 @@
 import PageContainer from "@components/container/page/PageContainer"
 import SearchStudentByCedulaForm from "@components/forms/Student/SearchStudentByCedulaForm"
-import { Alert, AlertTitle, Box, Divider, Grid } from "@mui/material"
+import { Alert, AlertTitle, Box, Divider, Grid2 } from "@mui/material"
 import { getStudentPaymentInfo } from "@/services/dining-student/diningStudentService"
 import { useState } from "react"
 import StudentFoundData from "../components/StudentFoundData"
@@ -26,7 +26,6 @@ const RegisterDiningPayment = () => {
       if (!diningId) throw new Error("diningId is missing");
       return getDiningById(parseInt(diningId));
     }, queryKey: ['today-dining-stats'],
-    retry: false,
     refetchOnWindowFocus: false,
     enabled: !!diningId
   })
@@ -75,11 +74,11 @@ const RegisterDiningPayment = () => {
         existsLoading ? <LoadingScreen /> : (
           !existsError && !!exists &&
           <>
-            <Grid container sx={{ alignItems: 'center' }}>
-              <Grid item xs={12}>
+            <Grid2 container sx={{ alignItems: 'center' }}>
+              <Grid2 size={12} mb={1}>
                 <SearchStudentByCedulaForm handleOnSubmit={fetchData} loading={loading} />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 >
                 {error &&
                   <Alert severity="warning" variant="filled" sx={{ mb: 3 }}>
                     <AlertTitle>
@@ -87,22 +86,22 @@ const RegisterDiningPayment = () => {
                     </AlertTitle>
                   </Alert>
                 }
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
             <Divider />
-            <Grid container mt={2} spacing={2}>
+            <Grid2 container mt={2} spacing={2}>
               {
                 studentData &&
                 <>
-                  <Grid item xs={6}>
+                  <Grid2 size={{xs:12, md:6}}>
                     <StudentFoundData data={studentData} />
-                  </Grid>
-                  <Grid item xs={6} >
+                  </Grid2>
+                  <Grid2 size={{xs:12, md:6}}>
                     <ConfirmPayment hasPay={!!hasPay} setHasPay={setHasPay} studentPaymentData={studentData} />
-                  </Grid>
+                  </Grid2>
                 </>
               }
-            </Grid>
+            </Grid2>
           </>
         )
       }

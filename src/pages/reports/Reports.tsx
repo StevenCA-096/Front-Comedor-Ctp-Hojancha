@@ -14,81 +14,35 @@ import { CalendarMonth, Coffee, CreditCard, Money, TrendingUp } from '@mui/icons
 import { IconCalendarCheck, IconMoon, IconUsers } from '@tabler/icons-react';
 import StatsCard from '@/components/Cards/StatsCard';
 import PageContainer from '@/components/container/page/PageContainer';
-import DateRangeForm from './components/DateRangeForm';
-
-// Datos quemados
-const mockData: any = {
-  period: {
-    startDate: "2025-11-05",
-    endDate: "2025-11-06",
-    daysCount: 2
-  },
-  summary: {
-    totalStudents: 8,
-    totalRevenue: 700,
-    totalExpectedRevenue: 800,
-    avgDailyRevenue: 350,
-    avgDailyStudents: 4,
-    totalDinings: 1
-  },
-  paymentMethods: {
-    "Efectivo": {
-      count: 8,
-      amount: 700
-    }
-  },
-  mealComparison: {
-    lunch: {
-      totalStudents: 8,
-      totalRevenue: 700,
-      avgPerService: 8,
-      servicesCount: 1
-    },
-    dinner: {
-      totalStudents: 0,
-      totalRevenue: 0,
-      avgPerService: 0,
-      servicesCount: 0
-    }
-  },
-  dailyTimeSeries: [
-    {
-      date: "2025-11-05",
-      lunch: {
-        students: 8,
-        revenue: 700,
-        expectedRevenue: 800
-      },
-      dinner: {
-        students: 0,
-        revenue: 0,
-        expectedRevenue: 0
-      },
-      total: {
-        students: 8,
-        revenue: 700,
-        expectedRevenue: 800
-      }
-    }
-  ],
-  weeklyTrends: [
-    {
-      dayName: "Martes",
-      avgStudents: 8,
-      avgRevenue: 700,
-      occurrences: 1
-    }
-  ]
-};
+import DateRangeForm, { type reportDateRangeSchemaType } from './components/DateRangeForm';
+import type { DiningReportDto } from '@/types/dining/dining/dtos/DiningReportDto';
+import type { SubmitHandler } from 'react-hook-form';
+import { getDiningReportByDateRange } from '@/services/dining/diningService';
+import toast from 'react-hot-toast';
+import { isAxiosError } from 'axios';
 
 const Reports = () => {
-  const [reportData] = useState<any>(mockData);
-  const [showReport] = useState(true);
+  const [reportData, setReportData] = useState<DiningReportDto | null>(null);
+  const [loading, setLoading] = useState(false)
 
-  const handleGenerateReport = (formData: any) => {
-    console.log('Generando reporte:', formData);
-    // Aquí llamarías a: getReportByDateRange(formData.startDate, formData.endDate)
-  };
+  const handleSearch: SubmitHandler<reportDateRangeSchemaType> = async (dates: reportDateRangeSchemaType) => {
+    console.log(dates)
+    try {
+      const result: DiningReportDto = await getDiningReportByDateRange(
+        dates.startDate,
+        dates.endDate
+      ).finally(() => setLoading(false))
+
+      if (!isAxiosError(result)) {
+        setReportData(result)
+        toast.success("Reporte generado correctamente.")
+      }
+
+    } catch (error) {
+      console.log(error)
+      toast.error("Error al generar el reporte.")
+    }
+  }
 
   // Configuración del gráfico de ingresos diarios
   const dailyRevenueChart = {
@@ -117,7 +71,7 @@ const Reports = () => {
         }
       },
       xaxis: {
-        categories: reportData?.dailyTimeSeries?.map((day: any) => 
+        categories: reportData?.dailyTimeSeries?.map((day: any) =>
           new Date(day?.date || '').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
         ) || [],
         labels: { style: { fontSize: '12px' } }
@@ -200,14 +154,15 @@ const Reports = () => {
     }
   };
 
+
   return (
     <PageContainer title='Reportes de Comedor'>
-      <DateRangeForm onSubmit={handleGenerateReport} />
+      <DateRangeForm onSubmit={handleSearch} loading={loading}/>
 
-      {showReport && reportData && (
+      {reportData && (
         <>
           {/* Período del reporte */}
-          <Alert severity="info" icon={<CalendarMonth />} sx={{ mb: 3 }}>
+          <Alert severity="info" icon={<CalendarMonth />} sx={{ my: 2 }}>
             Período: <strong>{reportData?.period?.startDate}</strong> a <strong>{reportData?.period?.endDate}</strong> ({reportData?.period?.daysCount || 0} días)
           </Alert>
 
@@ -223,7 +178,7 @@ const Reports = () => {
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <StatsCard
-                icon={<Money  />}
+                icon={<Money />}
                 title="Ingresos Totales"
                 value={`₡${reportData?.summary?.totalRevenue || 0}`}
                 color="success"

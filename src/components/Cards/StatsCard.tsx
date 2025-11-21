@@ -89,7 +89,7 @@ const StatsCard = ({
           ) : (
             <Avatar 
               sx={(theme) => ({ 
-                bgcolor: theme.palette[color].main + '20', // Alpha 20% (transparencia)
+                bgcolor: theme.palette[color].dark + '20', // Alpha 20% (transparencia)
                 color: `${color}.main`,
                 width: 56,
                 height: 56,

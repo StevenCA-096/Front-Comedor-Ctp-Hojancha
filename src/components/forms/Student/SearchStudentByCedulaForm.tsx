@@ -6,7 +6,7 @@ import { studentSearchByCedulaSchema } from "@utils/validation-form-schemas/Stud
 import { IconUser } from "@tabler/icons-react"
 import CustomButton from "../../Buttons/CustomButton"
 import { Search } from "@mui/icons-material"
-import { Stack } from "@mui/material"
+import { Grid2, Stack } from "@mui/material"
 import useIsMobile from '@hooks/isMobile/useIsMobile'
 
 interface SearchStudentByCedulaFormProps {
@@ -25,11 +25,8 @@ const SearchStudentByCedulaForm = ({ loading, handleOnSubmit }: SearchStudentByC
 
     return (
         <form onSubmit={handleSubmit(handleOnSubmit)}>
-            <Stack
-                direction={isMobile ? 'column' : 'row'}
-                alignItems={'end'}
-            >
-                <Box mr={2}>
+            <Grid2 container spacing={2}>
+                <Grid2 size={{xs:12, md:3}} >
                     <CustomTextField
                         id={'cedula-scan'}
                         register={register}
@@ -41,8 +38,8 @@ const SearchStudentByCedulaForm = ({ loading, handleOnSubmit }: SearchStudentByC
                         Icon={<IconUser />}
                         autoFocus
                     />
-                </Box>
-                <Box mb={3}>
+                </Grid2>
+                <Grid2 size={{xs:12, md:4}} mt={{xs:0, md:1}}>
                     <CustomButton
                         icon={<Search />}
                         label={'Buscar'}
@@ -50,8 +47,8 @@ const SearchStudentByCedulaForm = ({ loading, handleOnSubmit }: SearchStudentByC
                         type="submit"
                         size={'large'}
                     />
-                </Box>
-            </Stack>
+                </Grid2>
+            </Grid2>
         </form>
     )
 }

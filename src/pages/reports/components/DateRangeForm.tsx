@@ -1,6 +1,8 @@
+import CustomButton from "@/components/Buttons/CustomButton";
+import CustomTextField from "@/components/forms/theme-elements/CustomTextField";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Card, CardContent, Grid2, TextField, Typography } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { Box, Card, CardContent, Grid2, Typography } from "@mui/material";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import z from "zod";
 
 // validation schema
@@ -14,9 +16,11 @@ const reportSchema = z.object({
   path: ['endDate'],
 });
 
+export type reportDateRangeSchemaType = z.infer<typeof reportSchema>
+
 // dates form
-const DateRangeForm = ({ onSubmit }: any) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDateRangeSchemaType>, loading: boolean }) => {
+  const { handleSubmit, formState: { errors }, register } = useForm({
     resolver: zodResolver(reportSchema),
     defaultValues: {
       startDate: '2025-11-05',
@@ -30,51 +34,37 @@ const DateRangeForm = ({ onSubmit }: any) => {
         <Typography variant="h6" gutterBottom fontWeight="600" sx={{ mb: 3 }}>
           Seleccionar Período
         </Typography>
-        <Box component="div" onSubmit={handleSubmit(onSubmit)}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <Grid2 container spacing={2} alignItems="center">
-            <Grid2 size={{xs:12, md:4}}>
-              <Controller
+            <Grid2 size={{ xs: 12, md: 4 }}>
+              <CustomTextField
+                externalLabel
+                error={!!errors.startDate}
+                errorMessage={errors.startDate?.message}
+                type="date"
                 name="startDate"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Fecha Inicial"
-                    type="date"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    error={!!errors?.startDate}
-                    helperText={errors?.startDate?.message as string}
-                  />
-                )}
+                register={register}
+                label="Fecha Inicial"
               />
             </Grid2>
-            <Grid2 size={{xs:12, md:4}}>
-              <Controller
+            <Grid2 size={{ xs: 12, md: 4 }}>
+              <CustomTextField
+                externalLabel
+                error={!!errors.endDate}
+                errorMessage={errors.endDate?.message}
+                type="date"
                 name="endDate"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Fecha Final"
-                    type="date"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    error={!!errors?.endDate}
-                    helperText={errors?.endDate?.message as string}
-                  />
-                )}
+                register={register}
+                label="Fecha Final"
               />
             </Grid2>
-            <Grid2 size={{xs:12, md:4}}>
-              <Button
-                onClick={handleSubmit(onSubmit)}
-                variant="contained"
-                fullWidth
-                size="large"
-              >
-                Generar Reporte
-              </Button>
+            <Grid2 size={{ xs: 12, md: 4 }}>
+              <CustomButton
+                sx={{ mb: 2 }}
+                type="submit"
+                label="Generar Reporte"
+                loading={loading}
+              />
             </Grid2>
           </Grid2>
         </Box>

@@ -44,6 +44,7 @@ const FullLayout = () => {
           // Solo ajusta margin en desktop cuando está abierto
           ml: !isMobile  ? `${SIDEBAR_WIDTH}px` : 0,
           transition: 'margin-left 0.3s ease',
+          bgcolor:"paper"
         }}
       >
         {/* Header */}

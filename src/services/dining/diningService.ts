@@ -3,10 +3,11 @@ import type { Dining } from "@/types/dining/dining/entities/dining";
 import type { DiningDetailsDto } from "@/types/dining/dining/dtos/DiningDetailsDto";
 import type MealtimeStatsDto from "@/types/dining/dining/dtos/MealTimeStatsDto";
 import type { CreateDiningDto } from "@/types/dining/dining/dtos/CreateDiningDto";
+import type { UpdateDiningDto } from "@/types/dining/dining/dtos/UpdateDiningDto";
 
 //=== DINING REPORTS BY DATE RANGE
-export const getReportByDateRange = async(startDate: string, endDate: string) => {
-    const { data } = await api.get<any>(`dining/report-by-date-range/startDate/${startDate}/endDate/${endDate}`);
+export const getDiningReportByDateRange = async(startDate: string, endDate: string) => {
+    const { data } = await api.get<any>(`dining/report/startDate/${startDate}/endDate/${endDate}`);
     return data;
 }
 
@@ -39,5 +40,12 @@ export const getTodayStats = async(mealTime: string) => {
 export const createDining = async (formData: CreateDiningDto) => {
     const { data } = await api.post('dining', formData);
     console.log(data);
+    return data;
+}
+
+//=== UPDATES A NEW DINING
+export const updateDining = async (id: Dining['id'], formData: UpdateDiningDto) => {
+    const { id: _removed, ...cleanData } = formData; // delete id
+    const { data } = await api.patch('dining/'+id, cleanData);
     return data;
 }

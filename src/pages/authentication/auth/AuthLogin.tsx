@@ -35,7 +35,7 @@ const AuthLogin = () => {
             setIsLoading(true)
             const result = await login(data).finally(() => setIsLoading(false))
             if (!isAxiosError(result)) {
-                loginToState(result)
+                loginToState(result.user)
                 toast.success('Bienvenido')
                 return navigate('/')
             }
