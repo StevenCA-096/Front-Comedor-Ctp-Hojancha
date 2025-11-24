@@ -13,3 +13,8 @@ export const logoutFromApi = async () => {
   const result = (await api.post('auth/logout')).data
   return result
 }
+
+//=== REFRESHES THE TOKEN
+export const refreshToken = async () => {
+  await api.post('auth/refresh')
+}

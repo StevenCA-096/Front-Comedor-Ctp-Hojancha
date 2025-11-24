@@ -3,7 +3,7 @@ import { Grid, Box, Card, Typography, Divider } from '@mui/material';
 // components
 import AuthLogin from './auth/AuthLogin';
 import PageMeta from '@components/container/page/PageMeta';
-import LogoMepInstitution from '@/components/logo/LogoMepInstitution';
+import LogoMepInstitution from '@/components/Logo/LogoMepInstitution';
 
 const Login2 = () => {
 

@@ -20,6 +20,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import { getDiningReportByDateRange } from '@/services/dining/diningService';
 import toast from 'react-hot-toast';
 import { isAxiosError } from 'axios';
+import { formatDateStringWithDays } from '@/utils/date/format-date';
 
 const Reports = () => {
   const [reportData, setReportData] = useState<DiningReportDto | null>(null);
@@ -71,8 +72,8 @@ const Reports = () => {
         }
       },
       xaxis: {
-        categories: reportData?.dailyTimeSeries?.map((day: any) =>
-          new Date(day?.date || '').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+        categories: reportData?.dailyTimeSeries?.map((day) =>
+          formatDateStringWithDays(day?.date)
         ) || [],
         labels: { style: { fontSize: '12px' } }
       },

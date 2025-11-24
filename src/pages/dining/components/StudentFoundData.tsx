@@ -10,7 +10,7 @@ import {
 import { Box, Stack } from '@mui/system';
 import { IconIdBadge, IconPremiumRights, IconUser } from '@tabler/icons-react';
 import BlankCard from '@components/shared/BlankCard';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import type StudentPaymentInfo from '@/types/dining/dining-student/dtos/studentPaymentInfo';
 import { api } from '@/api/api';
 
@@ -26,7 +26,18 @@ const StudentFoundData = ({ data }: StudentFoundDataProps) => {
     const fullName = `${data.student?.name} ${data.student?.lastName1} ${data.student?.lastName2}`;
     const initials = `${data.student?.name?.[0] || ''}${data.student?.lastName1?.[0] || ''}`;
     const apiUrl = api.defaults.baseURL
-    console.log(`${apiUrl}Files/Student_Files/${data.student.cedula}/${data.student.cedula}-Foto_Tamaño_Pasaporte.jpeg`)
+    const [photoFormat, setPhotoFormat] = useState('jpeg')
+    const photoFormats = ['jpeg', 'jpg', 'png']
+
+    const handleImageError = () => {
+        const currentIndex = photoFormats.indexOf(photoFormat)
+        const nextIndex = currentIndex + 1
+
+        if (nextIndex < photoFormats.length) {
+            setPhotoFormat(photoFormats[nextIndex])
+        }
+    }
+
     return (
         <BlankCard>
             <Box
@@ -47,7 +58,8 @@ const StudentFoundData = ({ data }: StudentFoundDataProps) => {
                             fontWeight: 600,
                             boxShadow: theme.shadows[3]
                         }}
-                        src={`${apiUrl}Files/Student_Files/${data.student.cedula}/${data.student.cedula}-Foto_Tamaño_Pasaporte.jpeg`} // Cuando tengas la URL de la imagen
+                        onError={handleImageError}
+                        src={`${apiUrl}Files/Student_Files/${data.student.cedula}/${data.student.cedula}-Foto_Tamaño_Pasaporte.${photoFormat}`} // Cuando tengas la URL de la imagen
                     >
                         {initials}
                     </Avatar>

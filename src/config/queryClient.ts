@@ -45,7 +45,9 @@ export const queryClient = new QueryClient({
         console.log(error)
         if (isAxiosError(error) && error.status == 401) {
           handleAuthError(error)
-          return failureCount < 2; // Solo 2 retry después del refresh
+          setTimeout(() => {
+            return failureCount < 2; // Solo 2 retry después del refresh
+          }, 2000);
         }
         // Para otros errores, retry normal
         console.log("normal")

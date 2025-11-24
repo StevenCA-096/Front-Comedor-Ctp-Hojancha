@@ -13,7 +13,8 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
   const navigate = useNavigate()
   
   const handleContinue = () => {
-    if (error) {
+    console.log(error)
+    if (error || !loading == false) {
       return setOpenModal(true)
     }
     navigate(`/register-dining-payment/diningId/${data?.dining?.id}`)
@@ -24,7 +25,7 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
       title="Registrar pago"
       action={
         <Tooltip title="Registrar pago">
-          <Fab color="secondary" size="medium" sx={{ color: '#ffffff', cursor: 'pointer' }} onClick={handleContinue}>
+          <Fab color="secondary" size="medium" disabled={loading} sx={{ color: '#ffffff', cursor: 'pointer' }} onClick={handleContinue}>
             <IconCurrencyDollar width={24} />
           </Fab>
         </Tooltip>
@@ -70,8 +71,7 @@ const TodayPaymentsCard = ({ data, error, refetch, loading }: TodayPaymentsCardP
             </Stack>
           </>
       }
-
-      <OpenDiningModal open={openModal} onClose={() => setOpenModal(false)} refetch={() => refetch} />
+      <OpenDiningModal open={openModal} onClose={() => setOpenModal(false)} refetch={refetch ? () => refetch() : () => {}} />
     </DashboardCard>
   );
 };

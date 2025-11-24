@@ -1,4 +1,4 @@
-import { Alert, Grid, Tab, Tabs, Typography } from "@mui/material"
+import { Alert, Divider, Grid, Tab, Tabs, Typography } from "@mui/material"
 import PageContainer from "@components/container/page/PageContainer"
 import { getTodayStats } from "@/services/dining/diningService"
 import DiningsTable from "./components/DiningsTable"
@@ -12,6 +12,7 @@ import type MealtimeStatsDto from "@/types/dining/dining/dtos/MealTimeStatsDto"
 import type { AxiosError } from "axios"
 import { Info } from "@mui/icons-material"
 import CustomChip from "@/components/Chip/CustomChip"
+import { refreshToken } from "@/services/auth/authService"
 
 const Table = <DiningsTable />
 
@@ -26,13 +27,14 @@ const Dinings = () => {
         refetch
     } = useQuery<MealtimeStatsDto, AxiosError>({
         queryFn: () => getTodayStats(mealTimeActiveTab),
-        queryKey: ['today-dining-stats-' + mealTimeActiveTab], // Incluir mealTimeActiveTab en el queryKey
+        queryKey: ['today-dining-stats-' + mealTimeActiveTab],
         refetchOnWindowFocus: false,
-        initialData: createEmptyMealtimeStats()
+        initialData: createEmptyMealtimeStats(),
     })
 
-    // Refetch cuando cambie mealTimeActiveTab
+    // Refetch when mealTimeActiveTab changes, and token refresh to avoid undefinded
     useEffect(() => {
+        refreshToken()
         refetch()
     }, [mealTimeActiveTab, refetch])
 
@@ -56,6 +58,7 @@ const Dinings = () => {
                                 <Box >
                                     <Typography fontWeight={'bold'} fontSize={20} textAlign={'center'} >
                                         Caja de hoy
+                                        <Divider sx={{my:1}}/>
                                         {
                                             todayDiningError?.status == 404 &&
                                             <CustomChip
@@ -68,6 +71,7 @@ const Dinings = () => {
                                     </Typography>
                                     <Tabs
                                         variant="fullWidth"
+
                                         value={mealTimeActiveTab}
                                         onChange={(_, newValue) => setMealTimeActiveTab(newValue)}
                                     >
@@ -77,7 +81,7 @@ const Dinings = () => {
                                 </Box>
 
                                 <Box mb={1}>
-                                    <TodayPaymentsCard data={todayDining} error={!! todayDiningError} refetch={refetch} />
+                                    <TodayPaymentsCard data={todayDining} error={!!todayDiningError} refetch={refetch} />
                                 </Box>
                                 <Box>
                                     <TodayAssistancesCard data={todayDining} loading={todayDiningLoading} error={!!todayDiningError} />

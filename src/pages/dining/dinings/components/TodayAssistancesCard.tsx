@@ -7,23 +7,28 @@ import { formatDateStringWithDays } from '@utils/date/format-date';
 import { useNavigate } from 'react-router';
 import type { TodayPaymentsCardProps } from '../types/TodayPaymentsCardProps';
 
-const TodayAssistancesCard = ({ data }: TodayPaymentsCardProps) => {
+const TodayAssistancesCard = ({ data, error, loading }: TodayPaymentsCardProps) => {
   const theme = useTheme();
   console.log(data)
   const navigate = useNavigate()
+
+  const handleContinue = () => {
+    if (error || !data || !loading) {
+    }
+    navigate(`/register-dining-assistance/diningId/${data?.dining?.id}`)
+  }
 
   return (
     <DashboardCard
       title="Confirmar asistencia"
       action={
-        <Tooltip title='Registrar asistencia'>
+        <Tooltip title={error || !data || loading ? "Caja cerrada" : 'Registrar asistencia'}>
           <Fab
             color="primary"
             size="medium"
             sx={{ color: '#ffffff' }}
-            onClick={() => navigate(
-              `/register-dining-assistance/diningId/${data?.dining?.id}`
-            )}
+            disabled={error || !data || loading}
+            onClick={handleContinue}
           >
             <Check width={24} />
           </Fab>

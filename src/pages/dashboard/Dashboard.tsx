@@ -19,6 +19,7 @@ import { createEmptyMealtimeStats } from '@/types/dining/dining/dtos/MealTimeSta
 const Dashboard = () => {
   const [mealTime, setMealTime] = useState('Almuerzo');
 
+  //Data fort the chart
   const {
     data: mainChartData,
     isLoading: mainChartDataLoading } = useQuery({
@@ -28,7 +29,8 @@ const Dashboard = () => {
       refetchOnWindowFocus: false
     })
 
-  const { 
+  //Data for the cards of today stats
+  const {
     data: todayData,
     error: todayDataError,
     isLoading: todayDataLoading } = useQuery({
@@ -37,6 +39,8 @@ const Dashboard = () => {
       retry: false,
       refetchOnWindowFocus: false
     })
+
+  //Data for the stats card at the top
 
   return (
     <DashboardContext.Provider
@@ -51,16 +55,16 @@ const Dashboard = () => {
           <Grid container spacing={3}>
             <Grid container item spacing={2} xs={12}>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Total de estudiantes'} value={2} color='warning' />
+                <StatsCard icon={<IconUserStar />} title={'Total de estudiantes'} value={2} color='primary' />
               </Grid>
               <Grid item xs={12} md={3}>
                 <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={2} color='success' />
               </Grid>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={2} color='success' />
+                <StatsCard icon={<IconUserStar />} title={'Solicitudes de beca pendientes'} value={2} color='warning' />
               </Grid>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={2} color='success' />
+                <StatsCard icon={<IconUserStar />} title={'Total de servicios'} value={2} color='info' />
               </Grid>
             </Grid>
             <Grid item xs={12} lg={8}>

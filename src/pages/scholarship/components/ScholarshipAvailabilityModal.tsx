@@ -1,4 +1,5 @@
 import CustomButton from "@/components/Buttons/CustomButton"
+import CustomChip from "@/components/Chip/CustomChip"
 import CustomTextField from "@/components/forms/theme-elements/CustomTextField"
 import CustomModal from "@/components/Modals/CustomModal"
 import useCreateScholarshipAvailability from "@/hooks/api/scholarship-availability/mutations/useCreateScholarshipAvailability"
@@ -92,8 +93,12 @@ const ScholarshipAvailabilityModal = ({ onClose, open, scholarshipAvailability }
     }
 
     return (
-        <CustomModal title={isEdit ? 'Actualizar disponibilidad' : 'Abrir disponibilidad'} open={open} onClose={onClose}>
+        <CustomModal title={isEdit ? 'Actualizar disponibilidad ' : 'Abrir disponibilidad'} open={open} onClose={onClose}>
             <form onSubmit={handleSubmit(handleCreate)}>
+                <Box mt={3}>
+                    <CustomChip label={scholarshipAvailability?.scholarship?.name || ""} color="primary"/>
+                        
+                </Box>
                 <Box py={3}>
                     <CustomTextField
                         name="quota"

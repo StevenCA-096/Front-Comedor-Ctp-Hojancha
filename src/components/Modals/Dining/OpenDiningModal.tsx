@@ -59,9 +59,9 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                     setFocus('mealTime')
                     setError('openingDate', { message: `Ya hay caja de ${data?.mealTime} esta fecha` })
                 },
-                onSuccess: () => {
+                onSuccess: async() => {
                     toast.success('Caja creada exitosamente')
-                    refetch()
+                    await refetch()
                     clearErrors()
                     reset()
                     onClose()
