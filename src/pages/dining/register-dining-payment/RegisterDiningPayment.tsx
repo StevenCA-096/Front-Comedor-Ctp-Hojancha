@@ -8,10 +8,9 @@ import ConfirmPayment from "./ConfirmPayment"
 import LoadingScreen from "@components/LoadingScreen/LoadingScreen"
 import { isAxiosError } from "axios"
 import { useParams } from "react-router"
-import { getDiningById } from "../../../services/dining/diningService"
 import { formatDateStringWithDays } from "../../../utils/date/format-date"
-import { useQuery } from "@tanstack/react-query"
 import type StudentPaymentInfo from "@/types/dining/dining-student/dtos/studentPaymentInfo"
+import useDiningById from "@/hooks/api/dining/queries/useDiningById"
 
 const RegisterDiningPayment = () => {
   const { diningId } = useParams<{ diningId: string }>();
@@ -21,14 +20,7 @@ const RegisterDiningPayment = () => {
   const [studentData, setStudentData] = useState<StudentPaymentInfo | null>(null)
   const [hasPay, setHasPay] = useState<boolean>(false)
 
-  const { data: exists, error: existsError, isLoading: existsLoading } = useQuery({
-    queryFn: () => {
-      if (!diningId) throw new Error("diningId is missing");
-      return getDiningById(parseInt(diningId));
-    }, queryKey: ['today-dining-stats'],
-    refetchOnWindowFocus: false,
-    enabled: !!diningId
-  })
+  const { data: exists, error: existsError, isLoading: existsLoading } = useDiningById(parseInt(diningId || "0"))
 
   const fetchData = async (data: { cedula: number }) => {
     setLoading(true)
@@ -52,6 +44,10 @@ const RegisterDiningPayment = () => {
     }
   }
 
+  if (existsLoading) {
+    return <PageContainer title="Registrar asistencias"><LoadingScreen /></PageContainer>
+  }
+
   return (
     <PageContainer
       title={
@@ -71,7 +67,7 @@ const RegisterDiningPayment = () => {
         )
       }
       {
-        existsLoading ? <LoadingScreen /> : (
+        loading ? <LoadingScreen /> : (
           !existsError && !!exists &&
           <>
             <Grid2 container sx={{ alignItems: 'center' }}>
@@ -93,10 +89,10 @@ const RegisterDiningPayment = () => {
               {
                 studentData &&
                 <>
-                  <Grid2 size={{xs:12, md:6}}>
+                  <Grid2 size={{ xs: 12, md: 6 }}>
                     <StudentFoundData data={studentData} />
                   </Grid2>
-                  <Grid2 size={{xs:12, md:6}}>
+                  <Grid2 size={{ xs: 12, md: 6 }}>
                     <ConfirmPayment hasPay={!!hasPay} setHasPay={setHasPay} studentPaymentData={studentData} />
                   </Grid2>
                 </>

@@ -20,7 +20,12 @@ const getStatusColor = (status: ScholarshipRequestStatus) => {
 
 const ScholarshipRequestsTable = () => {
     // Loads all the dinings
-    const { data: scholarshipRequests = [], isLoading: scholarshipRequestsLoading, error: scholarshipRequestsError, isFetching } = useScholarshipRequestsList();
+    const { 
+        data: scholarshipRequests = [], 
+        isLoading: scholarshipRequestsLoading, 
+        error: scholarshipRequestsError, isFetching 
+    } = useScholarshipRequestsList();
+    
     const navigate = useNavigate();
     console.log(scholarshipRequests)
 

@@ -4,7 +4,6 @@ import { Alert, AlertTitle, Box, Divider, Grid } from "@mui/material"
 import { getStudentPaymentInfo } from "@/services/dining-student/diningStudentService"
 import { useState } from "react"
 import StudentFoundData from "../components/StudentFoundData"
-import { getDiningById } from "@/services/dining/diningService"
 import LoadingScreen from "@components/LoadingScreen/LoadingScreen"
 import { isAxiosError } from "axios"
 import ConfirmAssistance from "./ConfirmAssistance"
@@ -15,25 +14,20 @@ import { formatDateStringWithDays } from "@utils/date/format-date"
 import successSound from '@assets/sounds/payment-assistance-register/ok.wav'
 import errSound from '@assets/sounds/payment-assistance-register/err.wav'
 import { playSound } from "@utils/audio/playAudio"
-import { useQuery } from "@tanstack/react-query"
 import type StudentPaymentInfo from "@/types/dining/dining-student/dtos/studentPaymentInfo"
+import useDiningById from "@/hooks/api/dining/queries/useDiningById"
 
 //This is the main commponent for student assistance register
 const RegisterDiningAssistance = () => {
   const { diningId } = useParams<{ diningId: string }>();
 
+  //This loading state is for student search
   const [loading, setLoading] = useState(false)
   const [studentPaymentInfo, setStudentPaymentInfo] = useState<StudentPaymentInfo | null>(null)
   const [error, setError] = useState<boolean | string>(false)
 
-  const { data: exists, error: existsError, isLoading: existsLoading } = useQuery({
-    queryFn: () => {
-      if (!diningId) throw new Error("diningId is missing");
-      return getDiningById(parseInt(diningId));
-    },
-    queryKey: ['today-dining-stats'],
-    refetchOnWindowFocus: false,
-  })
+  //Data of the dining
+  const { data: exists, error: existsError, isLoading: existsLoading } = useDiningById(parseInt(diningId || "0"))
 
   //Fetch student info, if there is a student and he has already paid, plays a success sound, if not an err sound
   //if the student has already paid but also confirrmed his assistance it will play an err sound
@@ -77,6 +71,10 @@ const RegisterDiningAssistance = () => {
     }
   }
 
+  if (existsLoading) {
+    return <PageContainer title="Registrar asistencias"><LoadingScreen /></PageContainer>
+  }
+
   return (
     <PageContainer
       title={
@@ -84,7 +82,7 @@ const RegisterDiningAssistance = () => {
       }
       showBackButton>
       {
-        existsError && !loading && (
+        existsError && !existsLoading && (
           <Box>
             <Alert severity="warning" variant="filled">
               <AlertTitle>
@@ -95,39 +93,37 @@ const RegisterDiningAssistance = () => {
         )
       }
       {
-        existsLoading ? <LoadingScreen /> : (
-          !existsError && exists &&
-          <>
-            <Grid container sx={{ alignItems: 'center' }}>
-              <Grid item xs={12}>
-                <SearchStudentByCedulaForm handleOnSubmit={fetchData} loading={loading} />
-              </Grid>
-              <Grid item xs={12}>
-                {error &&
-                  <Alert severity="warning" variant="filled" sx={{ mb: 3 }}>
-                    <AlertTitle>
-                      {error}
-                    </AlertTitle>
-                  </Alert>
-                }
-              </Grid>
+        !existsError && exists &&
+        <>
+          <Grid container sx={{ alignItems: 'center' }}>
+            <Grid item xs={12}>
+              <SearchStudentByCedulaForm handleOnSubmit={fetchData} loading={loading} />
             </Grid>
-            <Divider />
-            <Grid container mt={2} alignItems={'center'} spacing={2}>
-              {
-                studentPaymentInfo &&
-                <>
-                  <Grid item xs={6}>
-                    <StudentFoundData data={studentPaymentInfo} />
-                  </Grid>
-                  <Grid item xs={6} >
-                    <ConfirmAssistance studentPaymentData={studentPaymentInfo} />
-                  </Grid>
-                </>
+            <Grid item xs={12}>
+              {error &&
+                <Alert severity="warning" variant="filled" sx={{ mb: 3 }}>
+                  <AlertTitle>
+                    {error}
+                  </AlertTitle>
+                </Alert>
               }
             </Grid>
-          </>
-        )
+          </Grid>
+          <Divider />
+          <Grid container mt={2} alignItems={'center'} spacing={2}>
+            {
+              studentPaymentInfo &&
+              <>
+                <Grid item xs={6}>
+                  <StudentFoundData data={studentPaymentInfo} />
+                </Grid>
+                <Grid item xs={6} >
+                  <ConfirmAssistance studentPaymentData={studentPaymentInfo} />
+                </Grid>
+              </>
+            }
+          </Grid>
+        </>
       }
     </PageContainer>
   )
