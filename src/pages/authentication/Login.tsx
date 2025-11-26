@@ -4,6 +4,7 @@ import { Grid, Box, Card, Typography, Divider } from '@mui/material';
 import AuthLogin from './auth/AuthLogin';
 import PageMeta from '@components/container/page/PageMeta';
 import LogoMepInstitution from '@/components/Logo/LogoMepInstitution';
+// import AuthVectors from './AuthVectors';
 
 const Login2 = () => {
 
@@ -24,6 +25,7 @@ const Login2 = () => {
           },
         }}
       >
+        {/* <AuthVectors /> */}
         <Grid container justifyContent="center" sx={{ height: '100dvh' }}>
           <Grid
             item
