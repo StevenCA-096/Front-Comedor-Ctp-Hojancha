@@ -3,6 +3,7 @@ import {
   IconReceipt2,
   IconTableOptions,
   IconUserStar,
+  IconNews, // Agregar este import
   type TablerIconsProps
 } from '@tabler/icons-react';
 
@@ -11,11 +12,11 @@ import { uniqueId } from 'lodash';
 const Menuitems: Item[] = [
   {
     navlabel: true,
-    subheader: 'Home',
+    subheader: 'Inicio',
   },
   {
     id: uniqueId(),
-    title: 'Dashboard',
+    title: 'Panel principal',
     icon: IconLayoutDashboard,
     href: '/dashboard',
   },
@@ -66,6 +67,17 @@ const Menuitems: Item[] = [
     title: 'Asistencias',
     icon: IconCopy,
     href: '/assistances',
+  },
+  // AGREGAR ESTA SECCIÓN
+  {
+    navlabel: true,
+    subheader: 'Comunicación',
+  },
+  {
+    id: uniqueId(),
+    title: 'Noticias',
+    icon: IconNews,
+    href: '/news',
   }
 ];
 

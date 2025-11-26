@@ -4,7 +4,7 @@ import Router from './routes/Router';
 import { Toaster } from 'react-hot-toast';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import useThemeStore from '@stores/theme/themeStore';
+import useThemeStore from './stores/theme/themeStore';
 import { basedarkTheme } from './theme/dark/DarkTheme';
 import { baselightTheme } from './theme/light/LightTheme';
 import { queryClient } from './config/queryClient';

@@ -11,9 +11,11 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 const Dashboard = Loadable(lazy(() => import('../pages/dashboard/Dashboard')))
 const Error = Loadable(lazy(() => import('../pages/authentication/Error')));
 //Auth
-const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
+const Login = Loadable(lazy(() => import('../pages/authentication/Login/Login')));
 //Profile
 const Profile = Loadable(lazy(() => import('../pages/profile/UserProfile')));
+const News = Loadable(lazy(() => import('../pages/news/News')));
+
 //Dining
 const Dinings = Loadable(lazy(() => import('../pages/dining/dinings/Dinings')));
 const DiningDetails = Loadable(lazy(() => import('../pages/dining/dining-details/DiningDetails')));
@@ -41,6 +43,14 @@ const Router = [
     children: [
       { path: '/', element: <Navigate to="/dashboard" /> },
       { path: '/dashboard', exact: true, element: <Dashboard /> },
+      {
+        path: '/news', exact: true, children: [
+          {
+            path: '',
+            element: <News />,
+          },
+        ]
+      },
       { path: '/profile', exact: true, element: <Profile /> },
       //Dining
       {

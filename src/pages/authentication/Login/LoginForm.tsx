@@ -18,7 +18,7 @@ import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import type { LoginDto } from '@/types/common/auth/loginDto';
 
-const AuthLogin = () => {
+const LoginForm = () => {
     const [loading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     const loginToState = useAuthStore(state => state.loginToState)
@@ -28,8 +28,13 @@ const AuthLogin = () => {
         formState: { errors },
         handleSubmit,
         setValue
-    } = useForm({ resolver: zodResolver(userLoginSchema), mode:"onChange" })
-
+    } = useForm({ 
+        resolver: zodResolver(userLoginSchema),
+        defaultValues:{
+            password:"",
+        },
+    })
+    
     const handleLoginSubmit = async (data: LoginDto) => {
         try {
             setIsLoading(true)
@@ -46,7 +51,7 @@ const AuthLogin = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(handleLoginSubmit)}>
+        <form noValidate onSubmit={handleSubmit(handleLoginSubmit)}>
             <Stack>
                 <Box>
                     <CustomTextField
@@ -58,6 +63,7 @@ const AuthLogin = () => {
                         type='number'
                         error={!!errors.username}
                         errorMessage={errors.username?.message}
+                        autoFocus
                     />
                 </Box>
                 <Box >
@@ -67,10 +73,10 @@ const AuthLogin = () => {
                         externalLabel
                         Icon={<Lock />}
                         name={'password'}
-                        onChangeFn={(e) => setValue('password', e.target.value)}
                         type='password'
                         error={!!errors.password}
                         errorMessage={errors.password?.message}
+                        onChangeFn={(e) => setValue('password', e.target.value)}
                     />
                 </Box>
                 <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>
@@ -103,4 +109,4 @@ const AuthLogin = () => {
 
 };
 
-export default AuthLogin;
+export default LoginForm;
