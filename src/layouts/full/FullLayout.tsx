@@ -4,11 +4,13 @@ import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import useIsMobile from "@/hooks/isMobile/useIsMobile";
+import useIsDarkMode from "@/hooks/IsDarkMode/useIsDarkMode";
 
 const SIDEBAR_WIDTH = 270;
 
 const FullLayout = () => {
   const isMobile = useIsMobile();
+  const isDarkMode = useIsDarkMode()
   
   // States separados
   const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(true);
@@ -44,7 +46,7 @@ const FullLayout = () => {
           // Solo ajusta margin en desktop cuando está abierto
           ml: !isMobile  ? `${SIDEBAR_WIDTH}px` : 0,
           transition: 'margin-left 0.3s ease',
-          bgcolor:"paper"
+          // bgcolor: !isDarkMode ? "#fdfdfdff" : 'rgba(32, 32, 32, 0.12)'
         }}
       >
         {/* Header */}
