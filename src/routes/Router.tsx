@@ -31,7 +31,7 @@ const ScholarshipStudents = Loadable(lazy(() => import('../pages/scholarship-stu
 //Reports
 const Reports = Loadable(lazy(() => import('../pages/reports/Reports')))
 //Assistances
-const Assistances = Loadable(lazy(() => import('../pages/assistances/Assistances')))
+const Attendances = Loadable(lazy(() => import('../pages/attendances/Attendances')))
 
 const Router = [
   {
@@ -88,7 +88,7 @@ const Router = [
       //Reports
       { path: '/reports', element: <Reports /> },
       //Assistances
-      { path: '/assistances', element: <Assistances /> },
+      { path: '/assistances', element: <Attendances /> },
       //Not found
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],

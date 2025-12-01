@@ -2,16 +2,17 @@ import CustomButton from "@/components/Buttons/CustomButton";
 import CustomTextField from "@/components/forms/theme-elements/CustomTextField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarMonth } from "@mui/icons-material";
-import { Box, Card, CardContent, Divider, Grid2, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Divider, Grid2, Stack, Typography, useTheme, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
 import { alpha } from "@mui/system";
 import { IconGraph } from "@tabler/icons-react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import z from "zod";
 
 // validation schema
 const reportSchema = z.object({
   startDate: z.string().min(1, 'Fecha inicial requerida'),
   endDate: z.string().min(1, 'Fecha final requerida'),
+  mealTime: z.string({message:"Ingrese el tiempo de comida"}).min(1, "Ingrese el tiempo de comida")
 }).refine((data) => {
   return new Date(data?.startDate) <= new Date(data?.endDate);
 }, {
@@ -30,15 +31,16 @@ const formatDateToInput = (date: Date): string => {
 };
 
 // dates form
-const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDateRangeSchemaType>, loading: boolean }) => {
+const DateRangeAndMealtimeForm = ({ onSubmit, loading, title }: { onSubmit: SubmitHandler<reportDateRangeSchemaType>, loading: boolean, title: string }) => {
   const theme = useTheme()
   const today = formatDateToInput(new Date());
 
-  const { handleSubmit, formState: { errors }, register } = useForm({
+  const { handleSubmit, formState: { errors }, register, control } = useForm({
     resolver: zodResolver(reportSchema),
     defaultValues: {
       startDate: today,
       endDate: today,
+      mealTime: "todos"
     }
   });
 
@@ -61,10 +63,10 @@ const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDa
               </Box>
               <Box>
                 <Typography variant="h4" fontWeight={800} color="primary.main" letterSpacing={-0.5}>
-                  Reporte por fechas
+                  {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" fontWeight={500}>
-                  Selecciona la fecha inicial y la fecha de cierre del reporte
+                  Selecciona la fecha inicial, fecha de cierre y tiempo de comida
                 </Typography>
               </Box>
             </Stack>
@@ -73,7 +75,7 @@ const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDa
         <Divider sx={{my:2}}/>
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <Grid2 container spacing={2} alignItems="center">
-            <Grid2 size={{ xs: 12, md: 4 }}>
+            <Grid2 size={{ xs: 12, md: 3 }}>
               <CustomTextField
                 externalLabel
                 error={!!errors.startDate}
@@ -84,7 +86,7 @@ const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDa
                 label="Fecha Inicial"
               />
             </Grid2>
-            <Grid2 size={{ xs: 12, md: 4 }}>
+            <Grid2 size={{ xs: 12, md: 3 }}>
               <CustomTextField
                 externalLabel
                 error={!!errors.endDate}
@@ -95,7 +97,30 @@ const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDa
                 label="Fecha Final"
               />
             </Grid2>
-            <Grid2 size={{ xs: 12, md: 4 }}>
+            <Grid2 size={{ xs: 12, md: 3 }}>
+              <FormControl fullWidth error={!!errors.mealTime}>
+                <InputLabel id="mealtime-label">Tiempo de Comida</InputLabel>
+                <Controller
+                  name="mealTime"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      labelId="mealtime-label"
+                      label="Tiempo de Comida"
+                      {...field}
+                    >
+                      <MenuItem value="todos">Todos</MenuItem>
+                      <MenuItem value="almuerzo">Almuerzo</MenuItem>
+                      <MenuItem value="cena">Cena</MenuItem>
+                    </Select>
+                  )}
+                />
+                {errors.mealTime && (
+                  <FormHelperText>{errors.mealTime.message}</FormHelperText>
+                )}
+              </FormControl>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 3 }}>
               <CustomButton
                 sx={{ mb: 2 }}
                 icon={<IconGraph/>}
@@ -111,4 +136,4 @@ const DateRangeForm = ({ onSubmit, loading }: { onSubmit: SubmitHandler<reportDa
   );
 };
 
-export default DateRangeForm
+export default DateRangeAndMealtimeForm

@@ -14,7 +14,7 @@ import { CalendarMonth, Coffee, CreditCard, Money, TrendingUp } from '@mui/icons
 import { IconCalendarCheck, IconMoon, IconUsers } from '@tabler/icons-react';
 import StatsCard from '@/components/Cards/StatsCard';
 import PageContainer from '@/components/container/page/PageContainer';
-import DateRangeForm, { type reportDateRangeSchemaType } from './components/DateRangeForm';
+import DateRangeAndMealtimeForm, { type reportDateRangeSchemaType } from '../../components/forms/DateRangeAndMealTime/DateRangeAndMealtimeForm';
 import type { DiningReportDto } from '@/types/dining/dining/dtos/DiningReportDto';
 import type { SubmitHandler } from 'react-hook-form';
 import { getDiningReportByDateRange } from '@/services/dining/diningService';
@@ -158,7 +158,7 @@ const Reports = () => {
 
   return (
     <PageContainer title='Reportes de Comedor'>
-      <DateRangeForm onSubmit={handleSearch} loading={loading}/>
+      <DateRangeAndMealtimeForm title='Reporte por fechas' onSubmit={handleSearch} loading={loading}/>
 
       {reportData && (
         <>

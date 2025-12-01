@@ -1,11 +1,11 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { 
-    Chip, 
-    Grid2, 
-    Typography, 
-    alpha, 
-    useTheme, 
+import {
+    Chip,
+    Grid2,
+    Typography,
+    alpha,
+    useTheme,
     Divider,
     Radio,
     RadioGroup,
@@ -64,7 +64,7 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
         if (paymentMethod === 'Efectivo' && montoRecibido) {
             const recibido = parseFloat(montoRecibido);
             const montoPagar = parseFloat(studentPaymentData?.amountToPay.toString() || '0');
-            
+
             if (!isNaN(recibido) && recibido >= montoPagar) {
                 setVuelto(recibido - montoPagar);
             } else {
@@ -124,7 +124,7 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
                 {/* Header con estado de pago */}
                 <Box
                     sx={{
-                        background: hasPay 
+                        background: hasPay
                             ? `linear-gradient(135deg, ${alpha(theme.palette.success.main, 0.15)} 0%, ${alpha(theme.palette.success.main, 0.05)} 100%)`
                             : `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(theme.palette.primary.main, 0.03)} 100%)`,
                         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -141,7 +141,7 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
                             icon={hasPay ? <Check sx={{ fontSize: 18 }} /> : <Close sx={{ fontSize: 18 }} />}
                             label={hasPay ? 'Pagado' : 'Pendiente de pago'}
                             color={hasPay ? 'success' : 'warning'}
-                            sx={{ 
+                            sx={{
                                 fontWeight: 600,
                                 px: 2,
                                 height: 32
@@ -150,288 +150,325 @@ const ConfirmPayment = ({ studentPaymentData, hasPay, setHasPay }: ConfirmPaymen
                     </Stack>
                 </Box>
 
-                {/* Contenido */}
                 <Box p={3}>
-                    <Typography 
-                        variant="overline" 
-                        color="text.secondary" 
-                        fontWeight={600}
-                        letterSpacing={1}
-                        mb={2}
-                        display="block"
-                    >
-                        Resumen de Costos
-                    </Typography>
+                    {/* Contenido */}
+                    <Box p={3}>
+                        <Grid2 container spacing={3}>
+                            {/* Columna izquierda: Resumen de Costos y Método de Pago */}
+                            <Grid2 size={{ xs: 12, md: 6 }}>
+                                <Stack spacing={3}>
+                                    {/* Resumen de Costos */}
+                                    <Box>
+                                        <Typography
+                                            variant="overline"
+                                            color="text.secondary"
+                                            fontWeight={600}
+                                            letterSpacing={1}
+                                            mb={2}
+                                            display="block"
+                                        >
+                                            Resumen de Costos
+                                        </Typography>
 
-                    <Grid2 container spacing={2} mb={3}>
-                        <Grid2 size={{ xs: 12, sm: 6 }}>
-                            <Box
-                                sx={{
-                                    p: 2,
-                                    borderRadius: 2,
-                                    bgcolor: alpha(theme.palette.info.main, 0.05),
-                                    border: `1px solid ${alpha(theme.palette.info.main, 0.2)}`,
-                                }}
-                            >
-                                <Typography 
-                                    variant="caption" 
-                                    color="text.secondary" 
-                                    fontWeight={600}
-                                    display="block"
-                                    mb={0.5}
-                                >
-                                    Precio del Almuerzo
-                                </Typography>
-                                <Typography variant="h4" fontWeight={700} color="info.main">
-                                    ₡{studentPaymentData?.total}
-                                </Typography>
-                            </Box>
-                        </Grid2>
-                        <Grid2 size={{ xs: 12, sm: 6 }}>
-                            <Box
-                                sx={{
-                                    p: 2,
-                                    borderRadius: 2,
-                                    bgcolor: alpha(theme.palette.success.main, 0.05),
-                                    border: `1px solid ${alpha(theme.palette.success.main, 0.2)}`,
-                                }}
-                            >
-                                <Typography 
-                                    variant="caption" 
-                                    color="text.secondary" 
-                                    fontWeight={600}
-                                    display="block"
-                                    mb={0.5}
-                                >
-                                    Monto a Pagar
-                                </Typography>
-                                <Typography variant="h4" fontWeight={700} color="success.main">
-                                    ₡{studentPaymentData?.amountToPay}
-                                </Typography>
-                            </Box>
-                        </Grid2>
-                    </Grid2>
+                                        <Grid2 container spacing={2}>
+                                            <Grid2 size={{ xs: 12, sm: 6 }}>
+                                                <Box
+                                                    sx={{
+                                                        p: 2,
+                                                        borderRadius: 2,
+                                                        bgcolor: alpha(theme.palette.info.main, 0.05),
+                                                        border: `1px solid ${alpha(theme.palette.info.main, 0.2)}`,
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        fontWeight={600}
+                                                        display="block"
+                                                        mb={0.5}
+                                                    >
+                                                        Precio del Almuerzo
+                                                    </Typography>
+                                                    <Typography variant="h4" fontWeight={700} color="info.main">
+                                                        ₡{studentPaymentData?.total}
+                                                    </Typography>
+                                                </Box>
+                                            </Grid2>
 
-                    <Divider sx={{ my: 2 }} />
+                                            <Grid2 size={{ xs: 12, sm: 6 }}>
+                                                <Box
+                                                    sx={{
+                                                        p: 2,
+                                                        borderRadius: 2,
+                                                        bgcolor: alpha(theme.palette.success.main, 0.05),
+                                                        border: `1px solid ${alpha(theme.palette.success.main, 0.2)}`,
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        fontWeight={600}
+                                                        display="block"
+                                                        mb={0.5}
+                                                    >
+                                                        Monto a Pagar
+                                                    </Typography>
+                                                    <Typography variant="h4" fontWeight={700} color="success.main">
+                                                        ₡{studentPaymentData?.amountToPay}
+                                                    </Typography>
+                                                </Box>
+                                            </Grid2>
+                                        </Grid2>
+                                    </Box>
 
-                    <Typography 
-                        variant="overline" 
-                        color="text.secondary" 
-                        fontWeight={600}
-                        letterSpacing={1}
-                        mb={2}
-                        display="block"
-                    >
-                        Método de Pago
-                    </Typography>
+                                    <Divider />
 
-                    <Box
-                        sx={{
-                            p: 2.5,
-                            borderRadius: 2,
-                            bgcolor: alpha(theme.palette.primary.main, 0.03),
-                            border: `1px solid ${theme.palette.divider}`,
-                            mb: 3
-                        }}
-                    >
-                        <FormControl component="fieldset" fullWidth>
-                            <RadioGroup
-                                row
-                                value={paymentMethod}
-                                onChange={handlePaymentMethodChange}
-                                sx={{ gap: 2 }}
-                            >
-                                <FormControlLabel
-                                    value="Efectivo"
-                                    control={<Radio />}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                            <Typography fontSize="1.2rem">💵</Typography>
-                                            <Typography fontWeight={500}>Efectivo</Typography>
+                                    {/* Método de Pago */}
+                                    <Box>
+                                        <Typography
+                                            variant="overline"
+                                            color="text.secondary"
+                                            fontWeight={600}
+                                            letterSpacing={1}
+                                            mb={2}
+                                            display="block"
+                                        >
+                                            Método de Pago
+                                        </Typography>
+
+                                        <Box
+                                            sx={{
+                                                p: 2.5,
+                                                borderRadius: 2,
+                                                bgcolor: alpha(theme.palette.primary.main, 0.03),
+                                                border: `1px solid ${theme.palette.divider}`,
+                                            }}
+                                        >
+                                            <FormControl component="fieldset" fullWidth>
+                                                <RadioGroup
+                                                    row
+                                                    value={paymentMethod}
+                                                    onChange={handlePaymentMethodChange}
+                                                    sx={{ gap: 2 }}
+                                                >
+                                                    <FormControlLabel
+                                                        value="Efectivo"
+                                                        control={<Radio />}
+                                                        label={
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                                <Typography fontSize="1.2rem">💵</Typography>
+                                                                <Typography fontWeight={500}>Efectivo</Typography>
+                                                            </Box>
+                                                        }
+                                                        sx={{
+                                                            flex: 1,
+                                                            m: 0,
+                                                            p: 1.5,
+                                                            borderRadius: 1.5,
+                                                            border: `2px solid ${paymentMethod === 'Efectivo' ? theme.palette.primary.main : 'transparent'}`,
+                                                            bgcolor: paymentMethod === 'Efectivo' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
+                                                            transition: 'all 0.2s ease',
+                                                            '&:hover': {
+                                                                bgcolor: alpha(theme.palette.primary.main, 0.05),
+                                                            }
+                                                        }}
+                                                    />
+                                                    <FormControlLabel
+                                                        value="SINPE"
+                                                        control={<Radio />}
+                                                        label={
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                                <Typography fontSize="1.2rem">📱</Typography>
+                                                                <Typography fontWeight={500}>SINPE Móvil</Typography>
+                                                            </Box>
+                                                        }
+                                                        sx={{
+                                                            flex: 1,
+                                                            m: 0,
+                                                            p: 1.5,
+                                                            borderRadius: 1.5,
+                                                            border: `2px solid ${paymentMethod === 'SINPE' ? theme.palette.primary.main : 'transparent'}`,
+                                                            bgcolor: paymentMethod === 'SINPE' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
+                                                            transition: 'all 0.2s ease',
+                                                            '&:hover': {
+                                                                bgcolor: alpha(theme.palette.primary.main, 0.05),
+                                                            }
+                                                        }}
+                                                    />
+                                                </RadioGroup>
+                                            </FormControl>
                                         </Box>
-                                    }
-                                    sx={{
-                                        flex: 1,
-                                        m: 0,
-                                        p: 1.5,
-                                        borderRadius: 1.5,
-                                        border: `2px solid ${paymentMethod === 'Efectivo' ? theme.palette.primary.main : 'transparent'}`,
-                                        bgcolor: paymentMethod === 'Efectivo' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
-                                        transition: 'all 0.2s ease',
-                                        '&:hover': {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.05),
-                                        }
-                                    }}
-                                />
-                                <FormControlLabel
-                                    value="SINPE"
-                                    control={<Radio />}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                            <Typography fontSize="1.2rem">📱</Typography>
-                                            <Typography fontWeight={500}>SINPE Móvil</Typography>
-                                        </Box>
-                                    }
-                                    sx={{
-                                        flex: 1,
-                                        m: 0,
-                                        p: 1.5,
-                                        borderRadius: 1.5,
-                                        border: `2px solid ${paymentMethod === 'SINPE' ? theme.palette.primary.main : 'transparent'}`,
-                                        bgcolor: paymentMethod === 'SINPE' ? alpha(theme.palette.primary.main, 0.08) : 'transparent',
-                                        transition: 'all 0.2s ease',
-                                        '&:hover': {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.05),
-                                        }
-                                    }}
-                                />
-                            </RadioGroup>
-                        </FormControl>
-                    </Box>
+                                    </Box>
 
-                    {/* Calculadora de vuelto - Solo visible cuando es Efectivo */}
-                    {paymentMethod === 'Efectivo' && (
-                        <Box
-                            sx={{
-                                p: 2.5,
-                                borderRadius: 2,
-                                bgcolor: alpha(theme.palette.warning.main, 0.05),
-                                border: `1px solid ${alpha(theme.palette.warning.main, 0.2)}`,
-                                mb: 3
-                            }}
-                        >
-                            <Stack spacing={2.5}>
-                                <Typography 
-                                    variant="subtitle2" 
-                                    color="text.secondary" 
-                                    fontWeight={600}
-                                    sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
-                                >
-                                    <AttachMoney sx={{ fontSize: 20 }} />
-                                    Calculadora de Vuelto
-                                </Typography>
+                                </Stack>
+                            </Grid2>
 
-                                {/* Monto recibido del estudiante */}
-                                <TextField
-                                    fullWidth
-                                    type="number"
-                                    label="Monto Recibido del Estudiante"
-                                    value={montoRecibido}
-                                    onChange={(e) => setMontoRecibido(e.target.value)}
-                                    placeholder="Ingrese el monto"
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <Typography fontWeight={600}>₡</Typography>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    helperText="Por defecto: pago exacto (sin vuelto)"
-                                    sx={{
-                                        '& .MuiOutlinedInput-root': {
-                                            bgcolor: 'background.paper',
-                                            fontWeight: 500,
-                                            fontSize: '1.1rem'
-                                        }
-                                    }}
-                                />
-
-                                {/* Vuelto calculado */}
-                                {montoRecibido && parseFloat(montoRecibido) >= parseFloat(studentPaymentData?.amountToPay.toString() || '0') && (
+                            {/* Columna derecha: Calculadora de Vuelto */}
+                            <Grid2 size={{ xs: 12, md: 6 }}>
+                                {paymentMethod === 'Efectivo' ? (
                                     <Box
                                         sx={{
                                             p: 2.5,
                                             borderRadius: 2,
-                                            bgcolor: vuelto > 0 
-                                                ? alpha(theme.palette.warning.main, 0.1)
-                                                : alpha(theme.palette.success.main, 0.1),
-                                            border: `2px solid ${vuelto > 0 
-                                                ? theme.palette.warning.main 
-                                                : theme.palette.success.main}`,
-                                            textAlign: 'center'
+                                            bgcolor: alpha(theme.palette.warning.main, 0.05),
+                                            border: `1px solid ${alpha(theme.palette.warning.main, 0.2)}`,
+                                            height: '100%'
                                         }}
                                     >
-                                        <Typography 
-                                            variant="caption" 
-                                            color="text.secondary" 
-                                            fontWeight={600}
-                                            display="block"
-                                            mb={1}
-                                        >
-                                            Vuelto a Entregar
-                                        </Typography>
-                                        <Typography 
-                                            variant="h3" 
-                                            fontWeight={700}
-                                            color={vuelto > 0 ? 'warning.main' : 'success.main'}
-                                        >
-                                            ₡{vuelto.toFixed(0)}
-                                        </Typography>
-                                        {vuelto === 0 && (
-                                            <Typography 
-                                                variant="caption" 
-                                                color="success.main"
-                                                fontWeight={500}
-                                                display="block"
-                                                mt={0.5}
+                                        <Stack spacing={2.5}>
+                                            <Typography
+                                                variant="subtitle2"
+                                                color="text.secondary"
+                                                fontWeight={600}
+                                                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
                                             >
-                                                ✓ Monto exacto
+                                                <AttachMoney sx={{ fontSize: 20 }} />
+                                                Calculadora de Vuelto
                                             </Typography>
-                                        )}
-                                    </Box>
-                                )}
 
-                                {/* Mensaje de error si el monto es insuficiente */}
-                                {montoRecibido && parseFloat(montoRecibido) < parseFloat(studentPaymentData?.amountToPay.toString() || '0') && (
+                                            {/* Monto recibido del estudiante */}
+                                            <TextField
+                                                fullWidth
+                                                type="number"
+                                                label="Monto Recibido del Estudiante"
+                                                value={montoRecibido}
+                                                onChange={(e) => setMontoRecibido(e.target.value)}
+                                                placeholder="Ingrese el monto"
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <Typography fontWeight={600}>₡</Typography>
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                helperText="Por defecto: pago exacto (sin vuelto)"
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        bgcolor: 'background.paper',
+                                                        fontWeight: 500,
+                                                        fontSize: '1.1rem'
+                                                    }
+                                                }}
+                                            />
+
+                                            {/* Vuelto calculado */}
+                                            {montoRecibido && parseFloat(montoRecibido) >= parseFloat(studentPaymentData?.amountToPay.toString() || '0') && (
+                                                <Box
+                                                    sx={{
+                                                        p: 2.5,
+                                                        borderRadius: 2,
+                                                        bgcolor: vuelto > 0
+                                                            ? alpha(theme.palette.warning.main, 0.1)
+                                                            : alpha(theme.palette.success.main, 0.1),
+                                                        border: `2px solid ${vuelto > 0
+                                                            ? theme.palette.warning.main
+                                                            : theme.palette.success.main}`,
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        fontWeight={600}
+                                                        display="block"
+                                                        mb={1}
+                                                    >
+                                                        Vuelto a Entregar
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="h3"
+                                                        fontWeight={700}
+                                                        color={vuelto > 0 ? 'warning.main' : 'success.main'}
+                                                    >
+                                                        ₡{vuelto.toFixed(0)}
+                                                    </Typography>
+                                                    {vuelto === 0 && (
+                                                        <Typography
+                                                            variant="caption"
+                                                            color="success.main"
+                                                            fontWeight={500}
+                                                            display="block"
+                                                            mt={0.5}
+                                                        >
+                                                            ✓ Monto exacto
+                                                        </Typography>
+                                                    )}
+                                                </Box>
+                                            )}
+
+                                            {/* Mensaje de error si el monto es insuficiente */}
+                                            {montoRecibido && parseFloat(montoRecibido) < parseFloat(studentPaymentData?.amountToPay.toString() || '0') && (
+                                                <Box
+                                                    sx={{
+                                                        p: 2,
+                                                        borderRadius: 2,
+                                                        bgcolor: alpha(theme.palette.error.main, 0.1),
+                                                        border: `1px solid ${theme.palette.error.main}`,
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="body2"
+                                                        color="error.main"
+                                                        fontWeight={600}
+                                                    >
+                                                        ⚠️ El monto recibido es menor al monto a pagar
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        display="block"
+                                                        mt={0.5}
+                                                    >
+                                                        Faltan ₡{(parseFloat(studentPaymentData?.amountToPay.toString() || '0') - parseFloat(montoRecibido)).toFixed(0)}
+                                                    </Typography>
+                                                </Box>
+                                            )}
+                                        </Stack>
+                                    </Box>
+                                ) : (
                                     <Box
                                         sx={{
-                                            p: 2,
+                                            p: 3,
                                             borderRadius: 2,
-                                            bgcolor: alpha(theme.palette.error.main, 0.1),
-                                            border: `1px solid ${theme.palette.error.main}`,
+                                            bgcolor: alpha(theme.palette.primary.main, 0.03),
+                                            border: `1px dashed ${theme.palette.divider}`,
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
                                             textAlign: 'center'
                                         }}
                                     >
-                                        <Typography 
-                                            variant="body2" 
-                                            color="error.main" 
-                                            fontWeight={600}
-                                        >
-                                            ⚠️ El monto recibido es menor al monto a pagar
-                                        </Typography>
-                                        <Typography 
-                                            variant="caption" 
-                                            color="text.secondary"
-                                            display="block"
-                                            mt={0.5}
-                                        >
-                                            Faltan ₡{(parseFloat(studentPaymentData?.amountToPay.toString() || '0') - parseFloat(montoRecibido)).toFixed(0)}
+                                        <Typography variant="body2" color="text.secondary">
+                                            💳 Pago con SINPE Móvil seleccionado
                                         </Typography>
                                     </Box>
                                 )}
-                            </Stack>
-                        </Box>
-                    )}
-
-                    <CustomButton
-                        label={hasPay ? 'Ya Pagado' : 'Confirmar Pago'}
-                        color={hasPay ? 'success' : 'primary'}
-                        fullWidth
-                        type="submit"
-                        icon={<Check />}
-                        loading={loading}
-                        disabled={hasPay || !isPaymentValid()}
-                        sx={{
-                            py: 1.5,
-                            fontSize: '1rem',
-                            fontWeight: 600,
-                            boxShadow: hasPay ? 'none' : theme.shadows[3],
-                            '&:hover': {
-                                boxShadow: hasPay ? 'none' : theme.shadows[6],
-                            }
-                        }}
-                    />
+                            </Grid2>
+                        </Grid2>
+                        <CustomButton
+                            label={hasPay ? 'Ya Pagado' : 'Confirmar Pago'}
+                            color={hasPay ? 'success' : 'primary'}
+                            fullWidth
+                            type="submit"
+                            icon={<Check />}
+                            loading={loading}
+                            disabled={hasPay || !isPaymentValid()}
+                            sx={{
+                                py: 1.5,
+                                mt:2,
+                                fontSize: '1rem',
+                                fontWeight: 600,
+                                boxShadow: hasPay ? 'none' : theme.shadows[3],
+                                '&:hover': {
+                                    boxShadow: hasPay ? 'none' : theme.shadows[6],
+                                }
+                            }}
+                        />
+                    </Box>
                 </Box>
+
             </BlankCard>
         </form>
     );

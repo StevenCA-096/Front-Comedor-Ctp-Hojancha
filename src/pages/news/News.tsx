@@ -8,10 +8,6 @@ const News = () => {
     return (
         <PageContainer title="Gestión de Noticias">
             <Box>
-                <Typography variant="h4" fontWeight={600} mb={3}>
-                    Gestión de Noticias
-                </Typography>
-
                 <Grid2 container spacing={3}>
                     {/* Formulario de creación */}
                     <Grid2 size={{ xs: 12, lg: 5 }}>
