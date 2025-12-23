@@ -1,5 +1,5 @@
 // src/pages/news/News.tsx
-import { Grid2, Typography, Box } from '@mui/material';
+import { Grid2, Box } from '@mui/material';
 import PageContainer from '@/components/container/page/PageContainer';
 import CreateNewsForm from './components/CreateNewsForm';
 import NewsList from './components/NewsList';

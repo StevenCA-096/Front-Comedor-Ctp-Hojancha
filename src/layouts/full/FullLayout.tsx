@@ -4,13 +4,11 @@ import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import useIsMobile from "@/hooks/isMobile/useIsMobile";
-import useIsDarkMode from "@/hooks/IsDarkMode/useIsDarkMode";
 
 const SIDEBAR_WIDTH = 270;
 
 const FullLayout = () => {
   const isMobile = useIsMobile();
-  const isDarkMode = useIsDarkMode()
   
   // States separados
   const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(true);
