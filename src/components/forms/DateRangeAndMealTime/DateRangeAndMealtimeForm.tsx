@@ -12,7 +12,9 @@ import z from "zod";
 const reportSchema = z.object({
   startDate: z.string().min(1, 'Fecha inicial requerida'),
   endDate: z.string().min(1, 'Fecha final requerida'),
-  mealTime: z.string({message:"Ingrese el tiempo de comida"}).min(1, "Ingrese el tiempo de comida")
+  mealTime: z.enum(["Almuerzo", "Cena", "Todos"], {
+    message: 'Indique el tiempo de comida' 
+  }),
 }).refine((data) => {
   return new Date(data?.startDate) <= new Date(data?.endDate);
 }, {
@@ -35,12 +37,12 @@ const DateRangeAndMealtimeForm = ({ onSubmit, loading, title }: { onSubmit: Subm
   const theme = useTheme()
   const today = formatDateToInput(new Date());
 
-  const { handleSubmit, formState: { errors }, register, control } = useForm({
+  const { handleSubmit, formState: { errors }, register, control } = useForm<reportDateRangeSchemaType>({
     resolver: zodResolver(reportSchema),
     defaultValues: {
       startDate: today,
       endDate: today,
-      mealTime: "todos"
+      mealTime: 'Todos'
     }
   });
 
@@ -109,9 +111,9 @@ const DateRangeAndMealtimeForm = ({ onSubmit, loading, title }: { onSubmit: Subm
                       label="Tiempo de Comida"
                       {...field}
                     >
-                      <MenuItem value="todos">Todos</MenuItem>
-                      <MenuItem value="almuerzo">Almuerzo</MenuItem>
-                      <MenuItem value="cena">Cena</MenuItem>
+                      <MenuItem value="Todos">Todos</MenuItem>
+                      <MenuItem value="Almuerzo">Almuerzo</MenuItem>
+                      <MenuItem value="Cena">Cena</MenuItem>
                     </Select>
                   )}
                 />

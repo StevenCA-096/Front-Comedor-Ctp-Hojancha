@@ -1,22 +1,52 @@
-import { Box, Stack } from "@mui/material";
-import { InfoRow, SectionTitle } from "./SectionParts";
-import { IconUser } from "@tabler/icons-react";
-import type { Responsible } from "@/types/student/Responsible";
 
-const ResponsibleInfo = ({ responsible }: {responsible: Responsible | undefined}) => (
-    <Box p={3} minHeight={{xs:'100%',md:250}}>
-      <SectionTitle icon={<IconUser size={22} />} title="Responsable" />
-      <Stack spacing={1}>
-        <InfoRow label="Cédula" value={responsible?.cedula.toString()} />
-        <InfoRow 
-          label="Nombre completo" 
-          value={`${responsible?.name} ${responsible?.lastName1}`} 
+import type { Responsible } from "@/types/student/Responsible";
+import GradientCard from "@/components/shared/GradientCard";
+import InfoItem from "@/components/shared/InfoItem";
+import { Person } from "@mui/icons-material";
+import { Grid2 } from "@mui/material";
+
+const ResponsibleInfo = ({ responsible }: { responsible: Responsible | undefined }) => (
+  <GradientCard icon={<Person />} title="Responsable" color="secondary">
+    <Grid2 spacing={2} container>
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <InfoItem
+          color="secondary"
+          label="Cédula"
+          value={responsible?.cedula.toString()}
         />
-        <InfoRow label="Sexo" value={responsible?.sex} />
-        <InfoRow label="Correo electrónico" value={responsible?.email} />
-        <InfoRow label="Ocupación" value={responsible?.occupation} />
-      </Stack>
-    </Box>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <InfoItem
+          color="secondary"
+          label="Nombre completo"
+          value={`${responsible?.name} ${responsible?.lastName1}`}
+        />
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <InfoItem
+          color="secondary"
+          label="Sexo"
+          value={responsible?.sex}
+        />
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <InfoItem
+          color="secondary"
+          label="Correo electrónico"
+          value={responsible?.email}
+        />
+      </Grid2>
+
+      <Grid2 size={{ xs: 12 }}>
+        <InfoItem
+          color="secondary"
+          label="Correo electrónico"
+          value={responsible?.email}
+        />
+      </Grid2>
+
+    </Grid2>
+  </GradientCard>
 );
 
 export default ResponsibleInfo

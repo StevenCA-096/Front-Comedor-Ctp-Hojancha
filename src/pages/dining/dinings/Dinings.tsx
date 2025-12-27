@@ -7,7 +7,6 @@ import { useState, useEffect } from "react"
 import TodayPaymentsCard from "./components/TodayPaymentsCard"
 import TodayAssistancesCard from "./components/TodayAssistancesCard"
 import { useQuery } from "@tanstack/react-query"
-import { createEmptyMealtimeStats } from "@/types/dining/dining/dtos/MealTimeStatsDto"
 import type MealtimeStatsDto from "@/types/dining/dining/dtos/MealTimeStatsDto"
 import type { AxiosError } from "axios"
 import { Info } from "@mui/icons-material"
@@ -29,7 +28,6 @@ const Dinings = () => {
         queryFn: () => getTodayStats(mealTimeActiveTab),
         queryKey: ['today-dining-stats-' + mealTimeActiveTab],
         refetchOnWindowFocus: false,
-        initialData: createEmptyMealtimeStats(),
     })
 
     // Refetch when mealTimeActiveTab changes, and token refresh to avoid undefinded
@@ -37,7 +35,6 @@ const Dinings = () => {
         refreshToken()
         refetch()
     }, [mealTimeActiveTab, refetch])
-
 
     return (
         <PageContainer title={'Cajas'} description="Gestión de cajas de comedor">
@@ -58,9 +55,9 @@ const Dinings = () => {
                                 <Box >
                                     <Typography fontWeight={'bold'} fontSize={20} textAlign={'center'} >
                                         Caja de hoy
-                                        <Divider sx={{my:1}}/>
+                                        <Divider sx={{ my: 1 }} />
                                         {
-                                            todayDiningError?.status == 404 &&
+                                            !todayDining  &&
                                             <CustomChip
                                                 icon={<Info color="warning" />}
                                                 color="warning"

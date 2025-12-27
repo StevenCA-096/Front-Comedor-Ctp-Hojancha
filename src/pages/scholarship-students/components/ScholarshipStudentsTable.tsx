@@ -7,11 +7,11 @@ import useCustomMaterialTable from "@/utils/mui-datatable/materialTableConfig";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { IconEye } from "@tabler/icons-react";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
+import { useNavigate } from "react-router-dom";
 
 const ScholarshipStudentsTable = ({ year }: { year: number }) => {
     const { data: scholarshipRequests, isLoading, isError, isFetching } = useActiveScholarshipStudentsByYear(year)
-
-    console.log(scholarshipRequests)
+    const navigate = useNavigate()
 
     // Define columns for Material React Table
     const columns: MRT_ColumnDef<ScholarshipRequest>[] = [
@@ -76,12 +76,12 @@ const ScholarshipStudentsTable = ({ year }: { year: number }) => {
                 </Select>
             </FormControl>
         ,
-        renderRowActions: () => (
+        renderRowActions: ({row}) => (
             <div style={{ display: 'flex', gap: '8px', flexDirection: "row" }}>
                 <TableButton
                     Icon={<IconEye size={16} />}
                     label="Ver"
-                    onClick={() => { }}
+                    onClick={() => navigate('details/'+row.original.id)}
                 />
             </div>
         ),

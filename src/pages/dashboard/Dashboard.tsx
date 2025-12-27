@@ -4,8 +4,6 @@ import PageContainer from '@components/container/page/PageContainer';
 // components
 import AssistanceOverview from './components/AssistanceOverview';
 import StudentAssistancesCard from './components/StudentAssistancesCard';
-import RecentPayments from './components/RecentPayments';
-import RecentAssistances from './components/RecentAssistances';
 import StudentPaymentsCard from './components/StudentPaymentsCard';
 import { getTodayStats } from '@/services/dining/diningService';
 import { DashboardContext } from '@context/DashboardContext/DashboardContext';
@@ -85,12 +83,12 @@ const Dashboard = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            {/* <Grid item xs={12} lg={4}>
               <RecentPayments />
             </Grid>
             <Grid item xs={12} lg={8}>
               <RecentAssistances />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       </PageContainer>
