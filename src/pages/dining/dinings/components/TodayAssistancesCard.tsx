@@ -40,14 +40,14 @@ const TodayAssistancesCard = ({ data, error, loading }: TodayPaymentsCardProps) 
         {/* column */}
         <Grid item xs={7} sm={9}>
           <Typography variant="h3" fontWeight="700">
-            {data?.totalAssistances} Asistencia{data?.totalAssistances > 1 ? 's' : ''}
+            {data?.totalAssistances} Asistencia{data?.totalAssistances && data?.totalAssistances > 1 ? 's' : ''}
           </Typography>
           <Stack direction="row" spacing={1} my={1} alignItems="center">
             <Avatar sx={{ width: 27, height: 27, background: theme.palette.primary.main }} >
               <IconUsers />
             </Avatar>
             <Typography variant="subtitle2" fontWeight="600">
-              {(data?.totalStudents - data?.totalAssistances) || 0}
+              {data?.totalStudents && data?.totalAssistances ? (data?.totalStudents - data?.totalAssistances) : 0}
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
               Pendientes
