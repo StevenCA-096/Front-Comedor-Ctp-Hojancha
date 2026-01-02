@@ -35,7 +35,7 @@ const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInfo
         <InfoItem
           color="secondary"
           label="Tipo de vivienda"
-          value={socioeconomic?.housingType}
+          value={socioeconomic?.housingType || 'No disponible'}
         />
       </Grid2>
 

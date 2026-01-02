@@ -12,7 +12,7 @@ const ResponsibleInfo = ({ responsible }: { responsible: Responsible | undefined
         <InfoItem
           color="secondary"
           label="Cédula"
-          value={responsible?.cedula.toString()}
+          value={responsible?.cedula.toString() || 'No disponible'}
         />
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6 }}>
@@ -33,7 +33,7 @@ const ResponsibleInfo = ({ responsible }: { responsible: Responsible | undefined
         <InfoItem
           color="secondary"
           label="Correo electrónico"
-          value={responsible?.email}
+          value={responsible?.email || 'No disponible'}
         />
       </Grid2>
 
@@ -41,7 +41,7 @@ const ResponsibleInfo = ({ responsible }: { responsible: Responsible | undefined
         <InfoItem
           color="secondary"
           label="Correo electrónico"
-          value={responsible?.email}
+          value={responsible?.email || 'No disponible'}
         />
       </Grid2>
 

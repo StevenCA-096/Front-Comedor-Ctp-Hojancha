@@ -97,6 +97,7 @@ const AttendancesTable = ({ data }: { data: AttendanceReportDto[] | null }) => {
         isLoadingError: false,
         isFetching: false,
         enableRowActions: false,
+        enableRowSelection: false
     });
 
     return (

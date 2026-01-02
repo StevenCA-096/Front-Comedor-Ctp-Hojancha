@@ -36,7 +36,7 @@ const Attendances = () => {
         <DateRangeAndMealtimeForm title="Asistencias al comedor" onSubmit={handleSubmit} loading={loading} />
         {
           attendancesData?.length == 0 ?
-            <EmptyState />
+            <EmptyState text="No hay asistencias registradas en el rango de fechas brindado"/>
             :
             attendancesData != null &&
             <AttendancesTable data={attendancesData} />
