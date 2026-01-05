@@ -58,6 +58,10 @@ const baselightTheme = createTheme({
       hover: '#f6f9fc',
     },
     divider: '#e5eaef',
+    background: {
+      default: '#f8fbfb',
+      paper: '#ffffff',
+    },
   },
   typography,
   shadows

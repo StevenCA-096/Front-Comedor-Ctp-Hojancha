@@ -10,9 +10,14 @@ import { DashboardContext } from '@context/DashboardContext/DashboardContext';
 import { getDasboardData } from '@/services/dining-student/diningStudentService';
 import { useState } from 'react';
 import StatsCard from '@components/Cards/StatsCard';
-import { IconUserStar } from '@tabler/icons-react';
+import { IconToolsKitchen, IconUserStar } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { createEmptyMealtimeStats } from '@/types/dining/dining/dtos/MealTimeStatsDto';
+import { useDiningList } from '@/hooks/api/dining/queries/useDiningList';
+import useScholarshipRequestsList from '@/hooks/api/scholarship-request/queries/useScholarshipRequestsList';
+import type { ScholarshipRequestStatus } from '@/types/scholarship/scholarship_request/entities/ScholarshipRequest';
+import useActiveScholarshipStudentsByYear from '@/hooks/api/scholarship-request/queries/useActiveScholarshipStudentsByYear';
+import { PendingActions, School } from '@mui/icons-material';
 
 const Dashboard = () => {
   const [mealTime, setMealTime] = useState('Almuerzo');
@@ -39,6 +44,13 @@ const Dashboard = () => {
     })
 
   //Data for the stats card at the top
+  const { data: dinings } = useDiningList()
+  const { data: scholarshipRequests = [] } = useScholarshipRequestsList();
+  const { data: scholarshipRequestsForThisYear } = useActiveScholarshipStudentsByYear(new Date().getFullYear())
+
+  const getCountByStatus = (status: ScholarshipRequestStatus) => {
+    return scholarshipRequests && scholarshipRequests.length > 0 ? scholarshipRequests?.filter((scholarshipRequest) => scholarshipRequest.status == status)?.length : 0
+  }
 
   return (
     <DashboardContext.Provider
@@ -50,19 +62,19 @@ const Dashboard = () => {
     >
       <PageContainer title="Dashboard" >
         <Box>
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             <Grid container item spacing={2} xs={12}>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Total de estudiantes'} value={2} color='primary' />
+                <StatsCard icon={<School />} title={'Total de estudiantes'} value={2} color='primary' />
               </Grid>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={2} color='success' />
+                <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={scholarshipRequestsForThisYear?.length || 0} color='success' />
               </Grid>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Solicitudes de beca pendientes'} value={2} color='warning' />
+                <StatsCard icon={<PendingActions />} title={'Solicitudes de beca pendientes'} value={getCountByStatus('Pendiente') || 0} color='warning' />
               </Grid>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<IconUserStar />} title={'Total de servicios'} value={2} color='info' />
+                <StatsCard icon={<IconToolsKitchen />} title={'Total de servicios'} value={dinings?.length || 0} color='info' />
               </Grid>
             </Grid>
             <Grid item xs={12} lg={8}>
@@ -74,7 +86,7 @@ const Dashboard = () => {
               />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <Grid container spacing={1}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <StudentPaymentsCard />
                 </Grid>

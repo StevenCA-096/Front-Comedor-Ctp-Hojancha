@@ -69,7 +69,7 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
             }
         ).finally(() => setLoading(false))
     }
-
+    
     return (
         <CustomModal open={open} onClose={onClose} title={'Abrir caja'}>
             <Box
@@ -79,10 +79,9 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    p: 2
                 }}
             >
-                <Stack direction={'column'}>
+                <Box width={'100%'}>
                     <Box>
                         <CustomTextField
                             register={register}
@@ -135,7 +134,7 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                             />
                         </Box>
                     </Stack>
-                </Stack>
+                </Box>
             </Box>
         </CustomModal>
     )

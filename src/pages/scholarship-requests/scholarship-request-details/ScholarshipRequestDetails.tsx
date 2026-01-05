@@ -34,6 +34,12 @@ const ScholarshipRequestDetails = () => {
     );
   }
 
+  const currentYearStudent =
+    scholarshipRequest.student?.socioeconomicInformation.
+      filter((socioeconomicInfo) =>
+        socioeconomicInfo.year == new Date(scholarshipRequest.requestDate).getFullYear()
+      )[0] || scholarshipRequest.student?.socioeconomicInformation[0]
+
   return (
     <PageContainer title="Detalles de Solicitud de Beca" showBackButton>
       <Grid2 container spacing={3}>
@@ -41,7 +47,7 @@ const ScholarshipRequestDetails = () => {
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Stack spacing={3} >
             <ResponsibleInfo responsible={scholarshipRequest?.student?.responsible} />
-            <SocioeconomicInfo socioeconomic={scholarshipRequest?.student?.socioeconomicInformation[0]} />
+            <SocioeconomicInfo socioeconomic={currentYearStudent} />
           </Stack>
         </Grid2>
 

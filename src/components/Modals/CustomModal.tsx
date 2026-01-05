@@ -1,43 +1,44 @@
-import { Dialog, DialogContent, DialogTitle, Slide, Typography, useTheme } from '@mui/material'
-import type { TransitionProps } from '@mui/material/transitions';
+import { Close } from '@mui/icons-material'
+import { Dialog, DialogContent, DialogTitle, IconButton, Typography, useTheme, type DialogProps } from '@mui/material'
 import type { ReactNode } from 'react'
-import React from 'react';
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+//For components that uses modal, helper to save work adding props
+export interface GenericModalProps {
+    onClose: () => void, 
+    open: boolean
+}
 
 interface CustomModalProps {
     children: ReactNode, 
     title: string, 
     onClose: () => void, 
     open: boolean
+    maxWidth?: DialogProps['maxWidth']
 }
 
-const CustomModal = ({ children, title, onClose, open }: CustomModalProps) => {
+const CustomModal = ({ children, title, onClose, open, maxWidth }: CustomModalProps) => {
     const theme = useTheme()
     return (
-        <Dialog open={open} onClose={onClose}
-        slots={{
-          transition: Transition,
-        }}
-        >
+        <Dialog fullWidth open={open} onClose={onClose} maxWidth={maxWidth} >
             <DialogTitle
                 sx={{
                     background: theme.palette.primary.main,
-                    boxShadow: 2
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: '100%',
+                    padding: theme.spacing(2, 3),
                 }}
             >
-                <Typography textAlign={'center'} variant="h4" color={'white'}>
+                <Typography variant="h5" color={'white'} sx={{ flex: 1 }}>
                     {title}
                 </Typography>
+                <IconButton onClick={onClose} sx={{ color: 'white' }}>
+                    <Close sx={{ height: 20 }} />
+                </IconButton>
             </DialogTitle>
-            <DialogContent>
+            <DialogContent sx={{bgcolor:theme.palette.background.default}}>
                 {children}
             </DialogContent>
         </Dialog>

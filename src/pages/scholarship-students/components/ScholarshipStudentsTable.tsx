@@ -9,7 +9,7 @@ import { IconEye } from "@tabler/icons-react";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import { useNavigate } from "react-router-dom";
 
-const ScholarshipStudentsTable = ({ year }: { year: number }) => {
+const ScholarshipStudentsTable = ({ year, setSelectedYear }: { year: number, setSelectedYear: React.Dispatch<React.SetStateAction<number>> }) => {
     const { data: scholarshipRequests, isLoading, isError, isFetching } = useActiveScholarshipStudentsByYear(year)
     const navigate = useNavigate()
 
@@ -52,7 +52,7 @@ const ScholarshipStudentsTable = ({ year }: { year: number }) => {
             ),
         },
     ];
-
+    console.log(year)
     // Custom hook using the material table configuration
     const table = useCustomMaterialTable<ScholarshipRequest>({
         columns,
@@ -68,7 +68,8 @@ const ScholarshipStudentsTable = ({ year }: { year: number }) => {
                     labelId="demo-simple-select-helper-label"
                     id="assign-scholarship-label"
                     label='Ciclo'
-                    defaultValue={year}
+                    value={year}
+                    onChange={(e) =>setSelectedYear(parseInt(e.target.value.toString()))}
                 >
                     <MenuItem value={new Date().getFullYear() + 1}>{new Date().getFullYear() + 1}</MenuItem>
                     <MenuItem value={new Date().getFullYear() -1}>{new Date().getFullYear() - 1}</MenuItem>

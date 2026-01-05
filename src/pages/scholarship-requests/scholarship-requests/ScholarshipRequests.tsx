@@ -12,6 +12,7 @@ const ScholarshipRequests = () => {
   const getCountByStatus = (status: ScholarshipRequestStatus) => {
     return scholarshipRequests && scholarshipRequests.length > 0 ? scholarshipRequests?.filter((scholarshipRequest) => scholarshipRequest.status == status)?.length : 0
   }
+  
   return (
     <PageContainer title={'Solicitudes de beca'} >
       <Grid2 spacing={2} container>

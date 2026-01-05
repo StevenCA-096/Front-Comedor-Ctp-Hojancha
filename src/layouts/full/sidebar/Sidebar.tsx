@@ -1,4 +1,4 @@
-import { Box, Drawer, useTheme } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 import SidebarItems from './SidebarItems';
 import Logo from '../shared/logo/Logo';
 
@@ -17,7 +17,6 @@ const Sidebar = ({
   mobileOpen,
   onMobileClose
 }: SidebarProps) => {
-  const theme = useTheme()
   // Contenido compartido del sidebar
   const SidebarContent = ({ onItemClick }: { onItemClick?: () => void }) => (
     <Box
@@ -64,7 +63,6 @@ const Sidebar = ({
           sx: {
             width: SIDEBAR_WIDTH,
             boxShadow: 3,
-            background: theme.palette.background.default,
           },
         }}
       >
@@ -80,7 +78,6 @@ const Sidebar = ({
       open={desktopOpen}
       PaperProps={{
         sx: {
-          background: theme.palette.background.default,
           width: SIDEBAR_WIDTH,
           borderRight: '1px solid',
           borderColor: 'divider',

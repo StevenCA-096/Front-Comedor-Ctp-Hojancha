@@ -5,19 +5,19 @@ import GradientCard from "@/components/shared/GradientCard";
 import InfoItem from "@/components/shared/InfoItem";
 
 const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInformation | undefined }) => (
-  <GradientCard icon={<IconReportMoney />} title="Información Socioeconómica" color="secondary">
+  <GradientCard icon={<IconReportMoney />} title="Información Socioeconómica" color="warning">
     <Grid2 spacing={2} container>
       <Grid2 size={{ xs: 12, md: 6 }}>
         <InfoItem
-          color="secondary"
+          color="warning"
           label="Miembros del hogar"
           value={`${socioeconomic?.membersCount} personas`}
         />
       </Grid2>
-      
+
       <Grid2 size={{ xs: 12, md: 6 }}>
         <InfoItem
-          color="secondary"
+          color="warning"
           label="Ingreso mensual"
           value={`₡${socioeconomic?.monthlyIncome.toLocaleString()}`}
         />
@@ -25,7 +25,7 @@ const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInfo
 
       <Grid2 size={{ xs: 12, md: 6 }}>
         <InfoItem
-          color="secondary"
+          color="warning"
           label="Ingreso per cápita"
           value={`₡${socioeconomic?.perCapitaIncome.toLocaleString()}`}
         />
@@ -33,7 +33,7 @@ const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInfo
 
       <Grid2 size={{ xs: 12, md: 6 }}>
         <InfoItem
-          color="secondary"
+          color="warning"
           label="Tipo de vivienda"
           value={socioeconomic?.housingType || 'No disponible'}
         />
@@ -41,40 +41,38 @@ const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInfo
 
       <Grid2 size={12}>
         <InfoItem
-          color="secondary"
+          color="warning"
+          showBgColor
           label="Condición de salud"
           value={
-            <Chip
-              icon={socioeconomic?.hasDisease ? <IconX size={16} /> : <IconCheck size={16} />}
-              label={socioeconomic?.hasDisease ? "Sí presenta" : "No presenta"}
-              size="small"
-              color={socioeconomic?.hasDisease ? "warning" : "success"}
-              variant="outlined"
-            />
+            <Grid2 container alignItems={'center'}>
+              <Chip
+                icon={socioeconomic?.hasDisease ? <IconX size={16} /> : <IconCheck size={16} />}
+                label={socioeconomic?.hasDisease ? "Sí presenta" : "No presenta"}
+                size="small"
+                color={socioeconomic?.hasDisease ? "warning" : "success"}
+                variant="outlined"
+              />
+              <Box
+                mx={2}
+                sx={{
+                  bgcolor: 'warning.lighter',
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'warning.light'
+                }}
+              >
+                <Typography variant="body2" color="text.warning" gutterBottom fontWeight={600}>
+                  Descripción de la condición:
+                </Typography>
+                <Typography variant="body2">
+                  {socioeconomic?.diseaseDescription}
+                </Typography>
+              </Box>
+            </Grid2>
           }
         />
       </Grid2>
-
-      {socioeconomic?.hasDisease && socioeconomic?.diseaseDescription && (
-        <Grid2 size={12}>
-          <Box 
-            p={2} 
-            sx={{ 
-              bgcolor: 'warning.lighter', 
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: 'warning.light'
-            }}
-          >
-            <Typography variant="body2" color="text.secondary" gutterBottom fontWeight={600}>
-              Descripción de la condición:
-            </Typography>
-            <Typography variant="body2">
-              {socioeconomic.diseaseDescription}
-            </Typography>
-          </Box>
-        </Grid2>
-      )}
     </Grid2>
   </GradientCard>
 );

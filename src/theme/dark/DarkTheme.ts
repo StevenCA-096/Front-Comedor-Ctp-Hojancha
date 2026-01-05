@@ -59,8 +59,8 @@ const basedarkTheme = createTheme({
     },
     divider: 'rgba(255, 255, 255, 0.12)',
     background: {
-      default: '#0F1419',
-      paper: '#0e1318ff',
+      default: '#101828',
+      paper: '#171e2e',
     },
   },
   typography,
