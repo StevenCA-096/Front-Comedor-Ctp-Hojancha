@@ -39,14 +39,6 @@ const CreateNewsForm = () => {
         );
     };
 
-    const handleSubmit = () => {
-        console.log({ title, description, selectedTags });
-        // Aquí irá la lógica de envío
-        setTitle('');
-        setDescription('');
-        setSelectedTags([]);
-    };
-
     return (
         <BlankCard>
             <Box
@@ -164,7 +156,6 @@ const CreateNewsForm = () => {
                         fullWidth
                         variant="contained"
                         startIcon={<Send />}
-                        onClick={handleSubmit}
                         disabled={!title || !description || selectedTags.length === 0}
                         sx={{
                             py: 1.5,

@@ -59,7 +59,7 @@ const baselightTheme = createTheme({
     },
     divider: '#e5eaef',
     background: {
-      default: '#f8fbfb',
+      default: '#ffffffff',
       paper: '#ffffff',
     },
   },

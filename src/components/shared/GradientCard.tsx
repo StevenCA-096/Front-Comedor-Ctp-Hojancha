@@ -12,8 +12,6 @@ interface GradientCardProps {
     color : ColorOptions
 }
 
-
-
 const GradientCard = ({ children, title, icon, color }: GradientCardProps) => {
     const theme = useTheme()
     
