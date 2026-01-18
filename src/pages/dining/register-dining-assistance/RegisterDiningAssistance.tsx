@@ -114,10 +114,10 @@ const RegisterDiningAssistance = () => {
             {
               studentPaymentInfo &&
               <>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                   <StudentFoundData data={studentPaymentInfo} />
                 </Grid>
-                <Grid item xs={6} >
+                <Grid item xs={12} md={6}>
                   <ConfirmAssistance studentPaymentData={studentPaymentInfo} />
                 </Grid>
               </>

@@ -56,9 +56,7 @@ const SocioeconomicInfo = ({ socioeconomic }: { socioeconomic: SocioeconomicInfo
               <Box
                 mx={2}
                 sx={{
-                  bgcolor: 'warning.lighter',
                   borderRadius: 2,
-                  border: '1px solid',
                   borderColor: 'warning.light'
                 }}
               >
