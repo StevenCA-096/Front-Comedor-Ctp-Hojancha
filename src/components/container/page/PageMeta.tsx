@@ -8,7 +8,7 @@ interface PageMetaProps {
 const PageMeta = ({ title, description }: PageMetaProps) => (
   <div>
     <Helmet>
-      <title>{title}</title>
+      <title>CTP Hojancha - {title}</title>
       <meta name="description" content={description} />
     </Helmet>
   </div>

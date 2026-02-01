@@ -6,7 +6,7 @@ import useGetNews from "@/hooks/api/news/queries/useGetNews";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import EmptyState from "@/components/EmptyState/EmptyState";
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 3;
 
 const NewsList = () => {
     const { data: news, isLoading } = useGetNews();
