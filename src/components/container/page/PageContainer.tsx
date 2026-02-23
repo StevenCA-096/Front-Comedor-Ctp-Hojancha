@@ -17,10 +17,10 @@ const PageContainer = ({ title, description = '', children, showBackButton = fal
     sx={{
       mt: 4,
       mb: 4,
-      p: { xs: 2, sm: 3, md: 4 },
+      p: { xs: 2, sm: 3, md: 2 },
     }}
   >
-    <PageMeta title={title} description={description} />
+    <PageMeta title={title || ''} description={description} />
 
     {/* Encabezado */}
     <Box mb={3} sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>

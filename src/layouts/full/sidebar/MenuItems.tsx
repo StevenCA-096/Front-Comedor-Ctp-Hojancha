@@ -68,7 +68,22 @@ const Menuitems: Item[] = [
     icon: IconCopy,
     href: '/assistances',
   },
-  // AGREGAR ESTA SECCIÓN
+  {
+    navlabel: true,
+    subheader: 'Usuarios',
+  },
+  {
+    id: uniqueId(),
+    title: 'Listado de estudiantes',
+    icon: IconNews,
+    href: '/students',
+  },
+  {
+    id: uniqueId(),
+    title: 'Personal',
+    icon: IconNews,
+    href: '/admins',
+  },
   {
     navlabel: true,
     subheader: 'Comunicación',

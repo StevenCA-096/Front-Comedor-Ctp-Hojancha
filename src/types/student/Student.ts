@@ -1,3 +1,4 @@
+import type { TransportRoute } from "../transport-routes/transport-route.entity";
 import type { Responsible } from "./Responsible";
 import type { SocioeconomicInformation } from "./SocioeconomicInformation";
 
@@ -19,7 +20,7 @@ export interface Student {
 
     birthplace: string;
 
-    birthday: Date;
+    birthday: Date | string;
 
     lastInstitution: string;
 
@@ -33,7 +34,7 @@ export interface Student {
 
     requireTransport: boolean;
 
-    transportRoute: string;
+    transportRoute: TransportRoute;
 
     personalEmail: string;
 

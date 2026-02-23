@@ -1,0 +1,11 @@
+export type UserRole = 
+  | 'super_admin'
+  | 'admin'
+  | 'student'
+  | 'collaborator'
+  | 'dining_manager'
+  | 'dining_staff'
+  | 'teacher'
+  | 'academic_coordinator'
+  | 'registrar'
+  | 'cashier'

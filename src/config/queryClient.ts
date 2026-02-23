@@ -43,6 +43,10 @@ export const queryClient = new QueryClient({
       retry: (failureCount, error) => {
         // Si es 401, intentar refrescar token primero
         console.log(error)
+        if (isAxiosError(error) && error.status == 403) {
+          //window.location.href = 'forbidden'
+        }
+
         if (isAxiosError(error) && error.status == 401) {
           handleAuthError(error)
           setTimeout(() => {

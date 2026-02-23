@@ -1,5 +1,5 @@
 import type { ColorOptions } from "@/theme/ColorOptions";
-import { IconButton, Tooltip } from "@mui/material";
+import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import type { ReactNode } from "react";
 
 interface TableButtonProps {
@@ -7,13 +7,20 @@ interface TableButtonProps {
     label?: string;
     onClick: () => void,
     color?: ColorOptions
+    disabled?: boolean
+    loading?: boolean
 }
 
-const TableButton = ({ Icon, label, onClick, color = 'info' }: TableButtonProps) => {
+const TableButton = ({ Icon, label, onClick, color = 'info', disabled = false, loading = false }: TableButtonProps) => {
     return (
         <Tooltip title={label}>
-            <IconButton onClick={onClick} color={color} sx={{':hover':{bgcolor:`${color}.light`}}}>
-                {Icon}
+            <IconButton
+                onClick={onClick}
+                color={color}
+                disabled={disabled || loading}
+                sx={{':hover':{bgcolor:`${color}.light`}}}
+            >
+                {loading ? <CircularProgress size={18} color="inherit" /> : Icon}
             </IconButton>
         </Tooltip>
     );

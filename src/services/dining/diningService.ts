@@ -14,8 +14,8 @@ export const getDiningAttendancesByDateRange = async(startDate: string, endDate:
 }
 
 //=== DINING REPORTS BY DATE RANGE
-export const getDiningReportByDateRange = async(startDate: string, endDate: string) => {
-    const { data } = await api.get<any>(`dining/report/startDate/${startDate}/endDate/${endDate}`);
+export const getDiningReportByDateRange = async(startDate: string, endDate: string, mealTime: mealTimesForReport) => {
+    const { data } = await api.get<any>(`dining/report/startDate/${startDate}/endDate/${endDate}/mealTime/${mealTime}`);
     return data;
 }
 

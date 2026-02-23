@@ -4,12 +4,11 @@ import useActiveScholarshipStudentsByYear from "@/hooks/api/scholarship-request/
 import type { ScholarshipRequest } from "@/types/scholarship/scholarship_request/entities/ScholarshipRequest";
 import { formatDateWithDaysAndHour } from "@/utils/date/format-date";
 import useCustomMaterialTable from "@/utils/mui-datatable/materialTableConfig";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { IconEye } from "@tabler/icons-react";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import { useNavigate } from "react-router-dom";
 
-const ScholarshipStudentsTable = ({ year, setSelectedYear }: { year: number, setSelectedYear: React.Dispatch<React.SetStateAction<number>> }) => {
+const ScholarshipStudentsTable = ({ year }: { year: number }) => {
     const { data: scholarshipRequests, isLoading, isError, isFetching } = useActiveScholarshipStudentsByYear(year)
     const navigate = useNavigate()
 
@@ -52,7 +51,6 @@ const ScholarshipStudentsTable = ({ year, setSelectedYear }: { year: number, set
             ),
         },
     ];
-    console.log(year)
     // Custom hook using the material table configuration
     const table = useCustomMaterialTable<ScholarshipRequest>({
         columns,
@@ -61,22 +59,6 @@ const ScholarshipStudentsTable = ({ year, setSelectedYear }: { year: number, set
         isLoadingError: !!isError,
         isFetching,
         enableRowActions: true,
-        renderTopToolbarCustomActions: () =>
-            <FormControl>
-                <InputLabel id="assign-scholarship-label">Ciclo</InputLabel>
-                <Select
-                    labelId="demo-simple-select-helper-label"
-                    id="assign-scholarship-label"
-                    label='Ciclo'
-                    value={year}
-                    onChange={(e) =>setSelectedYear(parseInt(e.target.value.toString()))}
-                >
-                    <MenuItem value={new Date().getFullYear() + 1}>{new Date().getFullYear() + 1}</MenuItem>
-                    <MenuItem value={new Date().getFullYear() -1}>{new Date().getFullYear() - 1}</MenuItem>
-                    <MenuItem value={new Date().getFullYear()}>{new Date().getFullYear()}</MenuItem>
-                </Select>
-            </FormControl>
-        ,
         renderRowActions: ({row}) => (
             <div style={{ display: 'flex', gap: '8px', flexDirection: "row" }}>
                 <TableButton

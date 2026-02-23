@@ -18,6 +18,7 @@ import useScholarshipRequestsList from '@/hooks/api/scholarship-request/queries/
 import type { ScholarshipRequestStatus } from '@/types/scholarship/scholarship_request/entities/ScholarshipRequest';
 import useActiveScholarshipStudentsByYear from '@/hooks/api/scholarship-request/queries/useActiveScholarshipStudentsByYear';
 import { PendingActions, School } from '@mui/icons-material';
+import useStudentCount from '@/hooks/api/student/mutations/useStudentCount';
 
 const Dashboard = () => {
   const [mealTime, setMealTime] = useState('Almuerzo');
@@ -45,6 +46,7 @@ const Dashboard = () => {
 
   //Data for the stats card at the top
   const { data: dinings } = useDiningList()
+  const { data: studentCount } = useStudentCount()
   const { data: scholarshipRequests = [] } = useScholarshipRequestsList();
   const { data: scholarshipRequestsForThisYear } = useActiveScholarshipStudentsByYear(new Date().getFullYear())
 
@@ -65,7 +67,7 @@ const Dashboard = () => {
           <Grid container spacing={2}>
             <Grid container item spacing={2} xs={12}>
               <Grid item xs={12} md={3}>
-                <StatsCard icon={<School />} title={'Total de estudiantes'} value={2} color='primary' />
+                <StatsCard icon={<School />} title={'Total de estudiantes'} value={studentCount} color='primary' />
               </Grid>
               <Grid item xs={12} md={3}>
                 <StatsCard icon={<IconUserStar />} title={'Estudiantes becados'} value={scholarshipRequestsForThisYear?.length || 0} color='success' />

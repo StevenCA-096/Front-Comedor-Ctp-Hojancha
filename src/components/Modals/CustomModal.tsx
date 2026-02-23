@@ -14,12 +14,13 @@ interface CustomModalProps {
     onClose: () => void, 
     open: boolean
     maxWidth?: DialogProps['maxWidth']
+    fullScreen?: boolean
 }
 
-const CustomModal = ({ children, title, onClose, open, maxWidth }: CustomModalProps) => {
+const CustomModal = ({ children, title, onClose, open, maxWidth, fullScreen }: CustomModalProps) => {
     const theme = useTheme()
     return (
-        <Dialog fullWidth open={open} onClose={onClose} maxWidth={maxWidth} >
+        <Dialog fullWidth open={open} onClose={onClose} maxWidth={maxWidth} fullScreen={fullScreen}>
             <DialogTitle
                 sx={{
                     background: theme.palette.primary.main,

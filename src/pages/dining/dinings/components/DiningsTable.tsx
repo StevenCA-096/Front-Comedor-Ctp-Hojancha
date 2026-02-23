@@ -18,6 +18,8 @@ import { queryClient } from "@/config/queryClient";
 
 const DiningsTable = () => {
     const theme = useTheme()
+    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [processingDiningId, setProcessingDiningId] = useState<Dining["id"] | null>(null)
 
     // Loads all the dinings
     const {
@@ -32,11 +34,10 @@ const DiningsTable = () => {
 
     const updateMutation = useUpdateDiningMutation({
         onSuccess: (updated) => {
-            toast.success(`Caja ${updated?.closeDate ? 'ABIERTA' : 'CERRADA'} exitosamente`);
+            toast.success(`Caja ${updated?.closeDate ? 'CERRADA' : 'ABIERTA'} exitosamente`);
             //Updates in query cache instead of refetch for instant updatre
             queryClient.setQueryData<Dining[]>(['dinings'], (old) => {
                 if (!old) return [updated];
-                console.log(updated)
                 return old.map(dining =>
                     dining.id === updated.id ? updated : dining
                 );
@@ -44,23 +45,19 @@ const DiningsTable = () => {
         },
     });
 
-    //Shared funtion for close/open dining
-    const handleUpdate = async (id: Dining['id'], open: boolean, prevDate: string | Date | null) => {
-        //Avoids extra fetch in case of trying to close/open when its already in the respective state
-        if (!prevDate && open) {
-            return toast.success("La caja ya esta abierta.")
-        }
-        if (prevDate && !open) {
-            return toast.success("La caja ya esta cerrada.")
-        }
-        
-        updateMutation.mutateAsync({
-            id,
-            isOpen: open
-        })
-    }
+    const handleToggleDiningStatus = async (dining: Dining) => {
+        const shouldOpen = !!dining.closeDate
+        setProcessingDiningId(dining.id)
 
-    const [openModal, setOpenModal] = useState<boolean>(false)
+        try {
+            await updateMutation.mutateAsync({
+                id: dining.id,
+                isOpen: shouldOpen
+            })
+        } finally {
+            setProcessingDiningId(null)
+        }
+    }
 
     // Define columns for Material React Table
     const columns: MRT_ColumnDef<Dining>[] = [
@@ -126,14 +123,10 @@ const DiningsTable = () => {
                     onClick={() => navigate(`/register-dining-assistance/diningId/${row.original.id}`)}
                 />
                 <TableButton
-                    Icon={<IconLockOpen size={16} />}
-                    label="Abrir caja"
-                    onClick={() => handleUpdate(row.original.id, true, row.original.closeDate)}
-                />
-                <TableButton
-                    Icon={<IconLockCancel size={16} />}
-                    label="Cerrar caja"
-                    onClick={() => handleUpdate(row.original.id, false, row.original.closeDate)}
+                    Icon={row.original.closeDate ? <IconLockOpen size={16} /> : <IconLockCancel size={16} />}
+                    label={row.original.closeDate ? "Abrir caja" : "Cerrar caja"}
+                    onClick={() => handleToggleDiningStatus(row.original)}
+                    loading={processingDiningId === row.original.id}
                 />
             </div>
         ),

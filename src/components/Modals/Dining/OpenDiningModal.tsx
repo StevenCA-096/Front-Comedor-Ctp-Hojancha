@@ -125,7 +125,7 @@ const OpenDiningModal = ({ open, onClose, refetch }: OpenDiningModalProps) => {
                 { value: "Cena", label: "Cena" },
               ]}
               label={"Hora"}
-              onchange={(e) =>
+              onChange={(e) =>
                 setValue("mealTime", e?.target?.value as MealTimes)
               }
             />

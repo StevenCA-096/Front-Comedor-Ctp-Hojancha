@@ -14,7 +14,7 @@ import { CalendarMonth, Coffee, CreditCard, Money, TrendingUp } from '@mui/icons
 import { IconCalendarCheck, IconMoon, IconUsers } from '@tabler/icons-react';
 import StatsCard from '@/components/Cards/StatsCard';
 import PageContainer from '@/components/container/page/PageContainer';
-import DateRangeAndMealtimeForm, { type reportDateRangeSchemaType } from '../../components/forms/DateRangeAndMealTime/DateRangeAndMealtimeForm';
+import DateRangeAndMealtimeForm, { type reportDateRangeSchemaType } from '../../../components/forms/DateRangeAndMealTime/DateRangeAndMealtimeForm';
 import type { DiningReportDto } from '@/types/dining/dining/dtos/DiningReportDto';
 import type { SubmitHandler } from 'react-hook-form';
 import { getDiningReportByDateRange } from '@/services/dining/diningService';
@@ -31,7 +31,8 @@ const Reports = () => {
     try {
       const result: DiningReportDto = await getDiningReportByDateRange(
         dates.startDate,
-        dates.endDate
+        dates.endDate,
+        dates.mealTime
       ).finally(() => setLoading(false))
 
       if (!isAxiosError(result)) {

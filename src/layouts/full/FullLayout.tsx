@@ -1,24 +1,22 @@
 import { useState } from "react";
-import { Grid2 } from "@mui/material";
+import { Grid2, useMediaQuery, useTheme } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
-import useIsMobile from "@/hooks/isMobile/useIsMobile";
-import useIsDarkMode from "@/hooks/IsDarkMode/useIsDarkMode";
 
 const SIDEBAR_WIDTH = 270;
 
 const FullLayout = () => {
-  const isMobile = useIsMobile();
-  const isDarkMode =  useIsDarkMode()
+  const theme = useTheme()
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
   
   // States separados
   const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(true);
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [isMediumScreenSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const handleToggleSidebar = () => {
-    if (isMobile) {
-      setMobileSidebarOpen(!isMobileSidebarOpen);
+    if (isMediumScreen) {
+      setMobileSidebarOpen(!isMediumScreenSidebarOpen);
     } else {
       setDesktopSidebarOpen(!isDesktopSidebarOpen);
     }
@@ -28,9 +26,9 @@ const FullLayout = () => {
     <Grid2 sx={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
       <Sidebar
-        isMobile={isMobile}
+        isMediumScreen={isMediumScreen}
         desktopOpen={isDesktopSidebarOpen}
-        mobileOpen={isMobileSidebarOpen}
+        mobileOpen={isMediumScreenSidebarOpen}
         onMobileClose={() => setMobileSidebarOpen(false)}
       />
 
@@ -44,9 +42,8 @@ const FullLayout = () => {
           minHeight: '100vh',
           width: '100%',
           // Solo ajusta margin en desktop cuando está abierto
-          ml: !isMobile  ? `${SIDEBAR_WIDTH}px` : 0,
+          ml: !isMediumScreen  ? `${SIDEBAR_WIDTH}px` : 0,
           transition: 'margin-left 0.3s ease',
-          bgcolor: !isDarkMode ? "#f8fbfb" : 'rgba(32, 32, 32, 0.12)'
         }}
       >
         {/* Header */}
