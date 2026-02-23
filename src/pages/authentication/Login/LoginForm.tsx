@@ -82,7 +82,7 @@ const LoginForm = () => {
                 <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>
                     <Typography
                         component={Link}
-                        to="/"
+                        to="/auth/forgot-password"
                         fontWeight="500"
                         sx={{
                             textDecoration: 'none',

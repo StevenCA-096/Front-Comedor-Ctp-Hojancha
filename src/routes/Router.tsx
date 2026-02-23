@@ -23,6 +23,12 @@ const Dashboard = Loadable(lazy(() => import("../pages/dashboard/Dashboard")));
 const Login = Loadable(
   lazy(() => import("../pages/authentication/Login/Login")),
 );
+const ForgotPassword = Loadable(
+  lazy(() => import("../pages/authentication/ForgotPassword/ForgotPassword")),
+);
+const RecoverPassword = Loadable(
+  lazy(() => import("../pages/authentication/RecoverPassword/RecoverPassword")),
+);
 //Profile
 const Profile = Loadable(lazy(() => import("../pages/profile/UserProfile")));
 const News = Loadable(lazy(() => import("../pages/news/News")));
@@ -203,8 +209,14 @@ const Router = [
     children: [
       { path: "404", element: <Error /> },
       { path: "/auth/login", element: <Login /> },
+      { path: "/auth/forgot-password", element: <ForgotPassword /> },
       { path: "*", element: <Navigate to="/auth/404" /> },
     ],
+  },
+  {
+    path: "/recover-password/:token",
+    element: <BlankLayout />,
+    children: [{ path: "", element: <RecoverPassword /> }],
   },
 ];
 
